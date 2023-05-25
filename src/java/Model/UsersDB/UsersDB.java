@@ -2,14 +2,14 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model.UsersDB;
+package model.UsersDB;
 
-import Model.User.Users;
+import model.User.Users;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import Model.DBUnitil.DatabaseInfo;
+import model.DBUnitil.DatabaseInfo;
 import java.util.Random;
 
 /**
@@ -17,7 +17,9 @@ import java.util.Random;
  * @author ASUS-PRO
  */
 public class UsersDB {
- private static char[] chars = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+
+    private static char[] chars = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+
     public static Users checkLogin(String acc, String pass) {
         Users user = null;
         try ( Connection con = DatabaseInfo.getConnect()) {
@@ -42,17 +44,17 @@ public class UsersDB {
                 String idChild = rs.getString(10);
                 String certicate = rs.getString(11);
                 String imgAvt = rs.getString(12);
-                user = new Users(id, name, address, mail, pass, idChild, certicate, imgAvt, role, gender, dob, phone);
+                user = new Users(id, name, address, mail, pw, idChild, certicate, imgAvt, role, gender, dob, phone);
             }
             con.close();
             return user;
         } catch (Exception ex) {
+            ex.printStackTrace();
             throw new RuntimeException(ex);
         }
 
     }
 
-   
     public static Users registration(Users u) {
         try ( Connection con = DatabaseInfo.getConnect()) {
             String sql = "INSERT INTO [dbo].[Users]\n"
@@ -79,13 +81,50 @@ public class UsersDB {
         }
     }
 
+    public static boolean checkEmail(String email) {
+        Users user = null;
+        int affected_rows = 0;
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("Select [idUser]  ,[fullName]  ,[address]  "
+                    + " ,[dob] ,[gender]    ,[email]  ,[phoneNumber] ,[password]\n"
+                    + ",[role] ,[idChild] ,[certicate] ,[imgAvt] FROM [dbo].[Users] "
+                    + "where [email]=?");
+            stmt.setString(1, email);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString(1);
+                String name = rs.getString(2);
+                String address = rs.getString(3);
+                Date dob = rs.getDate(4);
+                String gender = rs.getString(5);
+                String mail = rs.getString(6);
+                String phone = rs.getString(7);
+                String pw = rs.getString(8);
+                String role = rs.getString(9);
+                String idChild = rs.getString(10);
+                String certicate = rs.getString(11);
+                String imgAvt = rs.getString(12);
+                user = new Users(id, name, address, mail, pw, idChild, certicate, imgAvt, role, gender, dob, phone);
+                affected_rows++;
+            }
+            con.close();
+            if (affected_rows == 1) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
+    }
+
     public static String createID() {
         Random generator = new Random();
-        String AlphaNumericString =  "abcdefghijklmnopqrstuvxyz";
+        String AlphaNumericString = "abcdefghijklmnopqrstuvxyz";
         StringBuilder sb = new StringBuilder(3);
         for (int i = 0; i < 3; i++) {
-            int index = (int) (AlphaNumericString.length()* Math.random());
-            sb.append(AlphaNumericString .charAt(index));
+            int index = (int) (AlphaNumericString.length() * Math.random());
+            sb.append(AlphaNumericString.charAt(index));
         }
         String randomStrValue = "";
         StringBuilder sb1 = new StringBuilder();
@@ -94,8 +133,9 @@ public class UsersDB {
             index = (int) (Math.random() * (chars.length - 1));
             sb1.append(chars[index]);
         }
-        return sb.toString()+sb1.toString();
+        return sb.toString() + sb1.toString();
     }
+
     public static void main(String[] args) {
         System.out.println(UsersDB.createID());
     }

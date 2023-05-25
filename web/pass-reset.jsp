@@ -14,7 +14,7 @@
                 background-image: url("img/school.jpg");
                 background-repeat: no-repeat;
                 background-attachment: fixed;
-                background-size:100%;
+              background-size:cover;
                 background-position : 50% 50%;
             }
 

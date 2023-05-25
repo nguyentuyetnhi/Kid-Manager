@@ -19,7 +19,7 @@
         <c:set var="role" value="${u.getRole()}"/>
         <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
             <div class="navbar-nav font-weight-bold mx-auto py-0">
-                <a href="index.jsp" class="nav-item nav-link active">Home</a>
+                <a href="index.jsp" class="nav-item nav-link">Home</a>
                 <a href="about.jsp" class="nav-item nav-link">About</a>
                 <a href="class.jsp" class="nav-item nav-link">Classes</a>
                 <a href="team.jsp" class="nav-item nav-link">Teachers</a>
@@ -34,11 +34,11 @@
                 <a href="contact.jsp" class="nav-item nav-link">Contact</a>
             </div>
             <c:if test="${user1 == null}">
-                <a href="login.jsp" class="btn btn-primary px-4">Login</a>
+                <a href="login.jsp" class="btn btn-primary px-5">Login</a>
             </c:if>
             <c:if test="${user1 != null}">
                 <div class="nav-item dropdown">
-                    <a class="btn btn-primary px-4 nav-link dropdown-toggle" data-toggle="dropdown" href="#">${u.getFullName()}</a>
+                    <a class="btn btn-primary px-5 nav-link dropdown-toggle" data-toggle="dropdown" href="#">${u.getFullName()}</a>
                     <div class="dropdown-menu rounded-0 m-0">
                         <a href="logout" class="dropdown-item">Logout</a>
                     </div>

@@ -1,6 +1,4 @@
-* {
-    box-sizing: border-box;
-}
+
 
 body {
     margin: 0;
@@ -121,7 +119,7 @@ body {
     margin-left: 13%;
     background-color: #99ff99;
     border-radius:  7px;
-    width: 70%;
+    width: 100%;
     text-align: center;
 }
 

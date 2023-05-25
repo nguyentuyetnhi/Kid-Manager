@@ -2,23 +2,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Cotroller.Login;
+package cotroller.login;
 
-import Model.User.Users;
-import Model.UsersDB.UsersDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User.Users;
+import model.UsersDB.UsersDB;
 
 /**
  *
  * @author ASUS-PRO
  */
 public class Login extends HttpServlet {
-
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -31,7 +30,6 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-
         String acc = request.getParameter("acc");
         String password = request.getParameter("password");
         Users user = null;
@@ -42,15 +40,14 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher(response.encodeURL("index.jsp")).forward(request, response);
             } else {
 //                request.setAttribute("email1", acc);
-                request.setAttribute("msq", "Login failed");
+                request.setAttribute("msq", "Incorrect phone number, email or password");
                 request.getRequestDispatcher("login.jsp").forward(request, response);
             }
         } else {
 //            request.setAttribute("email1", acc);
-            request.setAttribute("msq", "Login failed");
+            request.setAttribute("msq", "Incorrect phone number, email or password");
             request.getRequestDispatcher("login.jsp").forward(request, response);
         }
-
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -65,7 +62,6 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-//        request.getRequestDispatcher("login.jsp").forward(request, response);
         processRequest(request, response);
     }
 

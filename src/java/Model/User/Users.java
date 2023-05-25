@@ -2,9 +2,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
-package Model.User;
+package model.User;
 
-import Model.UsersDB.UsersDB;
+import model.UsersDB.UsersDB;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;

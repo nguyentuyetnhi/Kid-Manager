@@ -2,16 +2,16 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-package Cotroller.Login;
+package cotroller.login;
 
-import Model.User.Users;
-import Model.UsersDB.UsersDB;
 import java.io.IOException;
 import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User.Users;
+import model.UsersDB.UsersDB;
 
 /**
  *
@@ -43,7 +43,7 @@ public class Registration extends HttpServlet {
             request.setAttribute("msq", "Create failed");
             request.getRequestDispatcher(response.encodeURL("registration.jsp")).forward(request, response);
         } else {
-            if (email == null) {
+            if (email == null || email.isEmpty()) {
                 Users u = new Users();
                 u.setIdUser(UsersDB.createID());
                 u.setFullName(fullname);
@@ -58,10 +58,14 @@ public class Registration extends HttpServlet {
                 u.setIdChild("NULL");
                 u.setImgAvt("NULL");
                 UsersDB.registration(u);
-                request.setAttribute("msq", "Create success");
-                request.getRequestDispatcher(response.encodeURL("Login.jsp")).forward(request, response);
+                request.setAttribute("msq", "Registration success");
+                request.getRequestDispatcher(response.encodeURL("login.jsp")).forward(request, response);
             } else {
-                Users u = new Users();
+                if(UsersDB.checkEmail(email) == true){
+                    request.setAttribute("msq", "Email already exists");
+                request.getRequestDispatcher(response.encodeURL("registration.jsp")).forward(request, response);
+                }else{
+                    Users u = new Users();
                 u.setIdUser(UsersDB.createID());
                 u.setFullName(fullname);
                 u.setDob(dob);
@@ -75,8 +79,9 @@ public class Registration extends HttpServlet {
                 u.setIdChild("NULL");
                 u.setImgAvt("NULL");
                 UsersDB.registration(u);
-                request.setAttribute("msq", "Create success");
+                request.setAttribute("msq", "Registration success");
                 request.getRequestDispatcher(response.encodeURL("login.jsp")).forward(request, response);
+                }
             }
         }
     }
@@ -93,7 +98,6 @@ public class Registration extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        // request.getRequestDispatcher("index.jsp").forward(request, response);
         processRequest(request, response);
     }
 
