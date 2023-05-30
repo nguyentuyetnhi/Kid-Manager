@@ -1,12 +1,9 @@
-<!DOCTYPE html>
-<html lang="en">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 
-  <%@ include file="include/head.jsp" %>
+    <%@ include file="include/header.jsp" %>
 
 <body>
-    <!-- Navbar Start -->
-      <%@ include file="include/top_head.jsp" %>
-    <!-- Navbar End -->
 
 
     <!-- Header Start -->

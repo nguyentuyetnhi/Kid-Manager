@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User.Users;
 import model.UsersDB.UsersDB;
+import validation.Validator;
 
 /**
  *
@@ -28,20 +29,27 @@ public class Registration extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    public static final String ERROR = "registration.jsp";
+    public static final String SUCCESS = "login.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+      
         response.setContentType("text/html;charset=UTF-8");
-        String fullname = request.getParameter("fullName");
+        String fullname = Validator.upCassName(request.getParameter("fullName"));
         String dob = request.getParameter("dob");
         String gender = request.getParameter("gender");
         String phone = request.getParameter("phone");
         String email = request.getParameter("email");
         String password = request.getParameter("password");
-        String address = request.getParameter("address");
+//        String address = request.getParameter("address");
+        String address = Validator.upCassName(request.getParameter("address"));
         String Cpassword = request.getParameter("repeatPassword");
+        
+        Users us = new Users("", fullname, address, email, password, "", "", "", "", gender, dob, phone);
+        request.setAttribute("UserWrong", us);
         if (!(password != null && Cpassword != null && password.equals(Cpassword))) {
             request.setAttribute("msq", "Create failed");
-            request.getRequestDispatcher(response.encodeURL("registration.jsp")).forward(request, response);
+            request.getRequestDispatcher(response.encodeURL(ERROR)).forward(request, response);
         } else {
             if (email == null || email.isEmpty()) {
                 Users u = new Users();
@@ -59,28 +67,28 @@ public class Registration extends HttpServlet {
                 u.setImgAvt("NULL");
                 UsersDB.registration(u);
                 request.setAttribute("msq", "Registration success");
-                request.getRequestDispatcher(response.encodeURL("login.jsp")).forward(request, response);
+                request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
             } else {
-                if(UsersDB.checkEmail(email) == true){
-                    request.setAttribute("msq", "Email already exists");
-                request.getRequestDispatcher(response.encodeURL("registration.jsp")).forward(request, response);
-                }else{
+                if (UsersDB.checkEmail(email, phone) == true) {
+                    request.setAttribute("msq", "Email or PhoneNumber already exists");
+                    request.getRequestDispatcher(response.encodeURL(ERROR)).forward(request, response);
+                } else {
                     Users u = new Users();
-                u.setIdUser(UsersDB.createID());
-                u.setFullName(fullname);
-                u.setDob(dob);
-                u.setAddress(address);
-                u.setGender(gender);
-                u.setPhoneNumber(phone);
-                u.setEmail(email);
-                u.setPassword(password);
-                u.setRole("PR");
-                u.setCerticate("NULL");
-                u.setIdChild("NULL");
-                u.setImgAvt("NULL");
-                UsersDB.registration(u);
-                request.setAttribute("msq", "Registration success");
-                request.getRequestDispatcher(response.encodeURL("login.jsp")).forward(request, response);
+                    u.setIdUser(UsersDB.createID());
+                    u.setFullName(fullname);
+                    u.setDob(dob);
+                    u.setAddress(address);
+                    u.setGender(gender);
+                    u.setPhoneNumber(phone);
+                    u.setEmail(email);
+                    u.setPassword(password);
+                    u.setRole("PR");
+                    u.setCerticate("NULL");
+                    u.setIdChild("NULL");
+                    u.setImgAvt("NULL");
+                    UsersDB.registration(u);
+                    request.setAttribute("msq", "Registration success");
+                    request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
                 }
             }
         }

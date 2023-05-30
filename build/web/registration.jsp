@@ -1,8 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
+<html>
     <head>
         <title>KidKinder - Kindergarten Website </title>
-        <meta charset="UTF-8">
         <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.3.1/css/all.css" integrity="sha384-mzrmE5qonljUremFsqc01SB46JvROS7bZs3IO2EmfFsd15uHvIt+Y8vEf7N7fWAU" crossorigin="anonymous">      
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -20,7 +22,7 @@
 
         </style>
     </head>
-    <%@ include file="include/head.jsp" %>
+
     <body>
         <div class="container clearfix">
             <div class="form registration">
@@ -29,30 +31,31 @@
                     <p class="text-danger">${msq}</p>
                     <p>
                         <label>Full name<span>*</span></label>
-                        <input name="fullName" type="text" required>
+                        <input name="fullName" type="text" value="${UserWrong.fullName}" required>
+                        
                     </p>
                     <p>
                         <label>Date of birth<span>*</span></label>
-                        <input name="dob" class="form-control" type="date" required>
+                        <input name="dob" class="form-control" type="date" value="${UserWrong.dob}" required>
                     </p>
                     <p>
                         <label>Address <span>*</span></label>
-                        <input type="text" name="address" class="form-control"  placeholder="number-street-district-city" required>
+                        <input type="text" name="address" class="form-control"  value="${UserWrong.address}"  placeholder="number-street-district-city" required>
                     </p>
                     <p>
                          <label>Gender <span>*</span></label>
-                        <select class="form-select" name="gender" >
+                        <select class="form-select form-control border-warning"  value="${UserWrong.gender}"   name="gender" >
                         <option value="M"  >Male</option>
                         <option value="F"  >Female</option>
                     </select>
                     </p>
                     <p>
                         <label>Phone<span>*</span></label>
-                        <input name="phone" class="form-control" type="tel" required>
+                        <input name="phone" class="form-control" value="${UserWrong.phoneNumber}"   type="tel" required>
                     </p>
                     <p>
                         <label>Email</label>
-                          <input name="email" class="form-control" type="email">
+                          <input name="email" class="form-control" value="${UserWrong.email}"  type="email">
                     </p>
                     <p>
                         <label>Password<span>*</span></label>

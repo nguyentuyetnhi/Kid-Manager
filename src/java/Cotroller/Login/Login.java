@@ -27,6 +27,8 @@ public class Login extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    public static final String ERROR = "login.jsp";
+    public static final String SUCCESS = "index.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -37,16 +39,16 @@ public class Login extends HttpServlet {
             user = UsersDB.checkLogin(acc, password);
             if (user != null) {
                 request.getSession().setAttribute("USER", user);
-                request.getRequestDispatcher(response.encodeURL("index.jsp")).forward(request, response);
+                request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
             } else {
 //                request.setAttribute("email1", acc);
                 request.setAttribute("msq", "Incorrect phone number, email or password");
-                request.getRequestDispatcher("login.jsp").forward(request, response);
+                request.getRequestDispatcher(ERROR).forward(request, response);
             }
         } else {
 //            request.setAttribute("email1", acc);
             request.setAttribute("msq", "Incorrect phone number, email or password");
-            request.getRequestDispatcher("login.jsp").forward(request, response);
+            request.getRequestDispatcher(ERROR).forward(request, response);
         }
     }
 

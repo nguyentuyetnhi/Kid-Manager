@@ -20,7 +20,7 @@
 
         </style>
     </head>
-    <%@ include file="include/head.jsp" %>
+
     <body>
         <div class="container ">
             <div class="form login">

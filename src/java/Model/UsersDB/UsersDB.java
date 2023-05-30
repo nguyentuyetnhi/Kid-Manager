@@ -81,15 +81,15 @@ public class UsersDB {
         }
     }
 
-    public static boolean checkEmail(String email) {
+    public static boolean checkEmail(String email, String phone) {
         Users user = null;
-        int affected_rows = 0;
         try ( Connection con = DatabaseInfo.getConnect()) {
             PreparedStatement stmt = con.prepareStatement("Select [idUser]  ,[fullName]  ,[address]  "
                     + " ,[dob] ,[gender]    ,[email]  ,[phoneNumber] ,[password]\n"
                     + ",[role] ,[idChild] ,[certicate] ,[imgAvt] FROM [dbo].[Users] "
-                    + "where [email]=?");
+                    + "where [email]=? or phoneNumber =?");
             stmt.setString(1, email);
+            stmt.setString(2, phone);
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
                 String id = rs.getString(1);
@@ -98,7 +98,43 @@ public class UsersDB {
                 Date dob = rs.getDate(4);
                 String gender = rs.getString(5);
                 String mail = rs.getString(6);
-                String phone = rs.getString(7);
+                String phoneNumber = rs.getString(7);
+                String pw = rs.getString(8);
+                String role = rs.getString(9);
+                String idChild = rs.getString(10);
+                String certicate = rs.getString(11);
+                String imgAvt = rs.getString(12);
+                user = new Users(id, name, address, mail, pw, idChild, certicate, imgAvt, role, gender, dob, phone);
+                
+            }
+            con.close();
+            if (user != null) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
+    }
+    public static boolean checkPhoneNumber(String phone) {
+        Users user = null;
+        int affected_rows = 0;
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("Select [idUser]  ,[fullName]  ,[address]  "
+                    + " ,[dob] ,[gender]    ,[email]  ,[phoneNumber] ,[password]\n"
+                    + ",[role] ,[idChild] ,[certicate] ,[imgAvt] FROM [dbo].[Users] "
+                    + "where [phone]=?");
+            stmt.setString(1, phone);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString(1);
+                String name = rs.getString(2);
+                String address = rs.getString(3);
+                Date dob = rs.getDate(4);
+                String gender = rs.getString(5);
+                String mail = rs.getString(6);
+                String phoneN = rs.getString(7);
                 String pw = rs.getString(8);
                 String role = rs.getString(9);
                 String idChild = rs.getString(10);
