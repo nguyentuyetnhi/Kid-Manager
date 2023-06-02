@@ -10,6 +10,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User.Users;
+import model.UsersDB.UsersDB;
+import org.apache.catalina.User;
+import validation.Validator;
 
 /**
  *
@@ -28,10 +32,31 @@ public class UpdateProfileParent extends HttpServlet {
      */
     public static final String ERROR = "profileParent_Edit.jsp";
     public static final String SUCCESS = "profileParent.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        
+
+        String idUser = request.getParameter("idUser");
+        String name = Validator.upCassName(request.getParameter("fullName"));
+        String dob = request.getParameter("dob");
+        String gender = request.getParameter("gender");
+        String email = request.getParameter("email");
+        String phoneNumber = request.getParameter("phoneNumber");
+        String address = Validator.upCassName(request.getParameter("address"));
+// Users( idUser,fullName,address,email, password, idChild, certicate, imgAvt, role,  gender, dob, phoneNumber)        
+        Users user = new Users(idUser, name, address, email, "", "", "", "", "", gender, dob, phoneNumber);
+
+        if (UsersDB.updateProfile(user)) {
+
+            request.setAttribute("msq", "Update Success!!!");
+            request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
+
+        } else {
+//            request.setAttribute("email1", acc);
+            request.setAttribute("msq", "Update fail!!!");
+            request.getRequestDispatcher(ERROR).forward(request, response);
+        }
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

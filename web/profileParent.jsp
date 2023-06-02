@@ -116,6 +116,7 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <a class="btn btn-primary px-5" href="profileParent_Edit.jsp">Edit</a>
+                                    <span class=" ml-5 text-success ">${msq}</span>
                                 </div>
                             </div>
                         </div>

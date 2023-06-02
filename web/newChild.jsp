@@ -42,7 +42,7 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="text" class="form-control" placeholder="Enter name child">
+                                    <input type="text" class="form-control input_form" placeholder="Enter name child"required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -50,7 +50,7 @@
                                     <h6 class="mb-0">Birthday</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input name="dob" class="form-control" type="date" required>
+                                    <input name="dob" class="form-control input_form" type="date" required>
                                 </div>
                             </div>
                             <div class="row mb-3">
@@ -58,16 +58,20 @@
                                     <h6 class="mb-0">Gender</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary" >
-                                    <select class="form-select col-sm-12 py-2 form-control " name="gender" >
+                                    <select class="form-select col-sm-12 py-2 form-control  custom-select input_form" name="gender" required>
                                         <option value="M"  >Male</option>
                                         <option value="F"  >Female</option>
-                                        </select>
+                                    </select>
                                 </div>
                             </div>
                             <div class="row">
                                 <div class="col-sm-3"></div>
                                 <div class="col-sm-9 text-secondary">
-                                    <input type="submit" class="btn btn-primary px-4" value="Add new Child">
+                                    <span class="navbar-text">
+                                        <a data-toggle="modal" data-target="#confirmEditProfile">
+                                            <input type="submit" class="btn btn-primary px-4"  value="Add new Child"></a>
+                                            <span class="text-danger ml-5">${msq}</span>
+                                    </span>
                                 </div>
                             </div>
                         </div>
@@ -75,6 +79,58 @@
                 </div>
 
             </div>
+            <!--Start  confirm edit--> 
+            <div id="confirmEditProfile" class="modal fade" role="dialog">
+                <div class="modal-dialog modal-lg" role="content">
+                    <!-- Modal content-->
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h4 class="modal-title">Confirm Edit</h4>
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                        </div>
+                        <div class="modal-body container">
+                            <form action="AddNewChild" method="POST">
+                                <div class="card-body">
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Full Name</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input type="text" name ="fullName" class="form-control input_confirm" placeholder="Enter name child" value=""required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Birthday</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary">
+                                            <input name="dob" class="form-control input_confirm" type="date" required>
+                                        </div>
+                                    </div>
+                                    <div class="row mb-3">
+                                        <div class="col-sm-3">
+                                            <h6 class="mb-0">Gender</h6>
+                                        </div>
+                                        <div class="col-sm-9 text-secondary" >
+                                            <select class="form-select col-sm-12 py-2 form-control  custom-select input_confirm " name="gender" required>
+                                                <option value="M"  >Male</option>
+                                                <option value="F"  >Female</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name ="idUser" class="form-control input_confirm" placeholder="Enter name child" value="${u.idUser}"required>
+                                    <div class="form-row text-left col-12">
+                                        <button type="button" class="btn btn-secondary btn-sm ml-auto"
+                                                data-dismiss="modal">Cancel</button>
+                                        <button type="submit" class="btn btn-primary btn-sm ml-3 px-5">Save</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!--End  confirm edit--> 
         </div>
     </div>
 </div>
@@ -83,5 +139,17 @@
 <script type="text/javascript">
 
 </script>
+ <script>
+        var inputForms = document.querySelectorAll('.input_form');
+        var inputConfirms = document.querySelectorAll('.input_confirm');
+
+        for (let i = 0; i < inputForms.length; i++) {
+            inputForms[i].addEventListener('change', function () {
+                console.log(i);
+              inputConfirms[i].value = inputForms[i].value;
+            });
+        }
+        
+    </script>
 </body>
 </html>

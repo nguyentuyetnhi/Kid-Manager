@@ -59,10 +59,10 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav font-weight-bold mx-auto py-0">
                         <a href="index.jsp" class="nav-item nav-link">Home</a>
-                        <a href="about.jsp" class="nav-item nav-link">About</a>
                         <a href="class.jsp" class="nav-item nav-link">Classes</a>
-                        <a href="team.jsp" class="nav-item nav-link">Teachers</a>
-                        <a href="gallery.jsp" class="nav-item nav-link">Gallery</a>
+                        <a href="gallery.jsp" class="nav-item nav-link">Timetable</a>
+                        <a href="#" class="nav-item nav-link">Proposal</a>
+                        <a href="#" class="nav-item nav-link">Announcement</a>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">
@@ -70,7 +70,14 @@
                                 <a href="single.jsp" class="dropdown-item">Blog Detail</a>
                             </div>
                         </div>
-                        <a href="contact.jsp" class="nav-item nav-link">Contact</a>
+                        <!--                        Admin sẽ hiện thêm Danh sách Giáo viên -  Khi admin click vào sẽ hiện bảng giáo viên
+                                                Gồm: stt - id - tên - giới tính - tuổi
+                                                Khi click vào tên giáo viên sẽ chuyển tới trang hiện ra profile của họ 
+                                                Gồm: id - tên - tuổi - giới tính - địa chỉ - email - sdt - số lớp đang dạy, đang dạy lớp nào.
+                                                
+                                                <a href="#" class="nav-item nav-link">Teacher List</a>
+                        -->
+
                     </div>
                     <c:if test="${user1 == null}">
                         <a href="login.jsp" class="btn btn-primary px-5">Login</a>

@@ -175,4 +175,38 @@ public class UsersDB {
     public static void main(String[] args) {
         System.out.println(UsersDB.createID());
     }
+    
+    // Ý 
+
+    
+     public static boolean updateProfile( Users us) {
+
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("UPDATE [dbo].[Users] SET  [fullName] = ?  ,[address] = ?  "
+                    + " ,[dob] = ? ,[gender] = ? ,[email] = ? ,[phoneNumber] = ? "
+                    + " where [idUser]=?");
+
+            stmt.setString(1, us.getFullName());
+            stmt.setString(2, us.getAddress());
+            stmt.setString(3, us.getDob());
+            stmt.setString(4, us.getGender());
+            stmt.setString(5, us.getEmail());
+            stmt.setString(6, us.getPhoneNumber());
+            stmt.setString(7, us.getIdUser());
+            
+            boolean rowUpdated = stmt.executeUpdate() > 0;
+            
+            con.close();
+            return rowUpdated;
+            
+        } catch (Exception ex) {
+            
+            ex.printStackTrace();
+            throw new RuntimeException(ex);
+            
+        }
+        
+    }
 }
+
+

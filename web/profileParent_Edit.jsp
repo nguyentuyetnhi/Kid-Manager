@@ -76,7 +76,7 @@
                                         <h6 class="mb-0 pt-2">Full Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="${u.getFullName()}">
+                                        <input type="text" class="form-control input_form" value="${u.getFullName()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -84,7 +84,7 @@
                                         <h6 class="mb-0 pt-2">Birthday</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input name="dob" class="form-control" type="date" value="${u.getDob()}" required>
+                                        <input name="dob" class="form-control input_form" type="date" value="${u.getDob()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -92,7 +92,7 @@
                                         <h6 class="mb-0 pt-2">Gender</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <select class="form-select col-sm-12 py-2 form-control " name="gender" value="F">
+                                        <select class="form-select col-sm-12 py-2 form-control custom-select input_form" name="gender" value="F">
                                             <option value="M"  >Male</option>
                                             <option value="F"  >Female</option>
                                         </select>
@@ -103,7 +103,7 @@
                                         <h6 class="mb-0 pt-2">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="${u.getEmail()}">
+                                        <input type="text" class="form-control input_form" value="${u.getEmail()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -111,7 +111,7 @@
                                         <h6 class="mb-0 pt-2">Phone</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="${u.getPhoneNumber()}">
+                                        <input type="text" class="form-control input_form" value="${u.getPhoneNumber()}" required>
                                     </div>
                                 </div>
 
@@ -120,13 +120,19 @@
                                         <h6 class="mb-0 pt-2">Address</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control" value="${u.getAddress()}">
+                                        <input type="text" class="form-control input_form" value="${u.getAddress()}" required>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="col-sm-3"></div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="submit" class="btn btn-primary px-4" value="Save Changes">
+
+                                        <span class="navbar-text">
+                                            <a data-toggle="modal" data-target="#confirmEditProfile">
+                                                <input type="button" class="btn btn-primary px-4"  value="Save Changes">
+                                            </a>
+                                            <span class="text-danger ">${msq}</span>
+                                        </span>
                                     </div>
                                 </div>
                             </div>
@@ -134,6 +140,83 @@
                     </div>
 
                 </div>
+                <!--Start  confirm edit--> 
+                <div id="confirmEditProfile" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg" role="content">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Confirm Edit</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form action="UpdateProfileParent" method="POST">
+                                    <div class="form-row row container">
+                                        <div class="row mb-3 col-12">
+                                            <div class="col-sm-3 col-12">
+                                                <h6 class="mb-0 pt-2">Full Name</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" name ="fullName" class="form-control input_confirm" value="${u.getFullName()}"required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 col-12">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0 pt-2">Birthday</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input name ="dob" class="form-control input_confirm"  type="date" value="${u.getDob()}" required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 col-12">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0 pt-2">Gender</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <select class="form-select col-sm-12 py-2 form-control custom-select input_confirm" name="gender" value="F">
+                                                    <option value="M"  >Male</option>
+                                                    <option value="F"  >Female</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 col-12">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0 pt-2">Email</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" name ="email" class="form-control input_confirm" value="${u.getEmail()}"required>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-3 col-12">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0 pt-2">Phone</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" name ="phoneNumber" class="form-control input_confirm" value="${u.getPhoneNumber()}"required>
+                                            </div>
+                                        </div>
+
+                                        <div class="row mb-3 col-12">
+                                            <div class="col-sm-3">
+                                                <h6 class="mb-0 pt-2">Address</h6>
+                                            </div>
+                                            <div class="col-sm-9 text-secondary">
+                                                <input type="text" name ="address" class="form-control input_confirm" value="${u.getAddress()}"required>
+                                                <input type="hidden" name ="idUser" class="form-control input_confirm" value="${u.getIdUser()}">
+                                            </div>
+                                        </div>
+                                        <div class="form-row text-left col-12">
+                                            <button type="button" class="btn btn-secondary btn-sm ml-auto"
+                                                    data-dismiss="modal">Cancel</button>
+                                            <button type="submit" class="btn btn-primary btn-sm ml-3 px-5">Save</button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--End  confirm edit--> 
             </div>
         </div>
     </div>
@@ -141,6 +224,17 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
 
+    </script>
+    <script>
+        var inputForms = document.querySelectorAll('.input_form');
+        var inputConfirms = document.querySelectorAll('.input_confirm');
+
+        for (let i = 0; i < inputForms.length; i++) {
+            inputForms[i].addEventListener('change', function () {
+                console.log(i);
+                inputConfirms[i].value = inputForms[i].value;
+            });
+        }
     </script>
 </body>
 </html>
