@@ -56,7 +56,7 @@
                                     </div>
                                     <div class="row">
                                         <div class="col-6 py-1 text-right border-right"><strong>Tuition Fee</strong></div>
-                                        <div class="col-6 py-1">${o.getTutionFee()}$/ Month</div>
+                                        <div class="col-6 py-1">TutionFee/ Month</div>
                                     </div>
                                 </div>
                                 <span class="navbar-text text-center">

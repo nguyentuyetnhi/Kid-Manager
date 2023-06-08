@@ -4,11 +4,11 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/web/include/header.jsp</file>
-            <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/src/java/Dmodel/SkillCourse/SkillCourse.java</file>
+            <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/web/team.jsp</file>
             <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/web/class.jsp</file>
             <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/src/java/model/User/ClassSkill.java</file>
-            <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/src/java/cotroller/list/ListClass.java</file>
             <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/src/java/model/UsersDB/ClassDB.java</file>
+            <file>file:/D:/learnFPT/Major5/SWR-SWT/RT03-A01/A01_RT03/A01_RT03/src/java/cotroller/list/ClassList.java</file>
         </group>
     </open-files>
 </project-private>

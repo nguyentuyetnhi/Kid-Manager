@@ -12,30 +12,36 @@ import java.time.format.DateTimeFormatter;
  * @author ASUS-PRO
  */
 public class ClassSkill {
-     private String idSkill, idChildCour,idteacher;
-     private LocalDateTime startDate, endDate;
+     private String idChildCour;
+     private String idSkill;
+     private String idteacher;
+     private LocalDateTime startDate;
+     private LocalDateTime endDate;
      private String className;
      private int totalSeat;
-     private String status;
-     private LocalDateTime timeStart, timeEnd;
+     private LocalDateTime timeStart;
+     private LocalDateTime timeEnd;
      private String skillName;
+     private String status;
 
     public ClassSkill() {
     }
 
-    public ClassSkill(String idSkill, String idChildCour, String idteacher, LocalDateTime startDate, LocalDateTime endDate, String className, int totalSeat, String status, LocalDateTime timeStart, LocalDateTime timeEnd, String skillName) {
-        this.idSkill = idSkill;
+    public ClassSkill(String idChildCour, String idSkill, String idteacher, LocalDateTime startDate, LocalDateTime endDate, String className, int totalSeat, LocalDateTime timeStart, LocalDateTime timeEnd, String skillName, String status) {
         this.idChildCour = idChildCour;
+        this.idSkill = idSkill;
         this.idteacher = idteacher;
         this.startDate = startDate;
         this.endDate = endDate;
         this.className = className;
         this.totalSeat = totalSeat;
-        this.status = status;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
         this.skillName = skillName;
+        this.status = status;
     }
+
+   
 
     public String getIdSkill() {
         return idSkill;

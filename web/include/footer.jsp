@@ -9,7 +9,7 @@
             <div class="col-lg-3 col-md-6 mb-5">
                 <a href="" class="navbar-brand font-weight-bold text-primary m-0 mb-4 p-0" style="font-size: 40px; line-height: 40px;">
                     <i class="flaticon-043-teddy-bear"></i>
-                    <span class="text-white">KidKinder</span>
+                    <span class="text-white">KidKABC</span>
                 </a>
                 <p>Labore dolor amet ipsum ea, erat sit ipsum duo eos. Volup amet ea dolor et magna dolor, elitr rebum duo est sed diam elitr. Stet elitr stet diam duo eos rebum ipsum diam ipsum elitr.</p>
                 <div class="d-flex justify-content-start mt-4">
@@ -36,7 +36,7 @@
                     <h4 class="fa fa-envelope text-primary"></h4>
                     <div class="pl-3">
                         <h5 class="text-white">Email</h5>
-                        <p>info@example.com</p>
+                        <p>kidabc@uxl.edu.com</p>
                     </div>
                 </div>
                 <div class="d-flex">

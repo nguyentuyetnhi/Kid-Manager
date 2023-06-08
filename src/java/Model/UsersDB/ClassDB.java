@@ -52,20 +52,20 @@ public class ClassDB {
 //            throw new RuntimeException(e);
 //        }
 //    }
-
     public ArrayList<ClassSkill> getAllClassByIdTeacher(String id) {
         ArrayList<ClassSkill> list = new ArrayList<>();
         try ( Connection con = DatabaseInfo.getConnect()) {
-            PreparedStatement stmt = con.prepareStatement("SELECT  [ChildCours].[idChildCour]\n"
+            PreparedStatement stmt = con.prepareStatement("SELECT  "
+                    + "       [ChildCours].[idChildCour]\n"
                     + "      ,[ChildCours].[idSkillCours]\n"
                     + "      ,[ChildCours].[idTeacher]\n"
                     + "      ,[ChildCours].[dateStart]\n"
                     + "      ,[ChildCours].[dateEnd]\n"
                     + "      ,[ChildCours].[name]\n"
                     + "      ,[ChildCours].[TotalSeat]\n"
-                    + "      ,[ChildCours].[Status]\n"
                     + "      ,[ChildCours].[timeStart]\n"
                     + "      ,[ChildCours].[timeEnd]\n"
+                    + "      ,[ChildCours].[Status]\n"
                     + "  FROM [ChildCours]\n"
                     + "  where [ChildCours].[idTeacher] = '" + id + "'");
             ResultSet rs = stmt.executeQuery();
@@ -77,13 +77,13 @@ public class ClassDB {
                 LocalDateTime endDate = rs.getTimestamp(5).toLocalDateTime();
                 String name = rs.getString(6);
                 int totalSeat = rs.getInt(7);
-                String status = rs.getString(8);
-                LocalDateTime timeStart = rs.getTimestamp(9).toLocalDateTime();
-                LocalDateTime timeEnd = rs.getTimestamp(10).toLocalDateTime();
-                String skillName = rs.getString(11);
+                LocalDateTime timeStart = rs.getTimestamp(8).toLocalDateTime();
+                LocalDateTime timeEnd = rs.getTimestamp(9).toLocalDateTime();
+//              String skillName = rs.getString(10);
+                String status = rs.getString(10);
+//                         idChildCour,  idSkill,  idteacher,  startDate,  endDate,  className,  totalSeat,  timeStart,  timeEnd,  skillName,  status
 
-                //   String idSkill, String idChildCour, String nameClass, String idteacher, Date startDate, Date endDate)
-                list.add(new ClassSkill(bid, cid, idt, startDate, endDate, name, totalSeat, status, timeStart, timeEnd,skillName));
+                list.add(new ClassSkill(cid, bid, idt, startDate, endDate, name, totalSeat, timeStart, timeEnd, "", status));
             }
             con.close();
             return list;
@@ -108,6 +108,18 @@ public class ClassDB {
                     + " ,[SkillCours].[skillName] FROM [ChildCours] INNER JOIN [SkillCours] ON [ChildCours].[idSkillCours]=[SkillCours].[idSkillCour]");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
+//                this.idChildCour = idChildCour;
+//        this.idSkill = idSkill;
+//        this.idteacher = idteacher;
+//        this.startDate = startDate;
+//        this.endDate = endDate;
+//        this.className = className;
+//        this.totalSeat = totalSeat;
+//        this.timeStart = timeStart;
+//        this.timeEnd = timeEnd;
+//        this.skillName = skillName;
+//        this.status = status;
+        
                 String cid = rs.getString(1);
                 String bid = rs.getString(2);
                 String idt = rs.getString(3);
@@ -115,14 +127,14 @@ public class ClassDB {
                 LocalDateTime endDate = rs.getTimestamp(5).toLocalDateTime();
                 String nameClass = rs.getString(6);
                 int totalSeat = rs.getInt(7);
-                
+
                 LocalDateTime timeStart = rs.getTimestamp(8).toLocalDateTime();
                 LocalDateTime timeEnd = rs.getTimestamp(9).toLocalDateTime();
-                
+
                 String status = rs.getString(10);
                 String skillName = rs.getString(11);
-
-                list.add(new ClassSkill(bid, cid, idt, startDate, endDate, nameClass, totalSeat, status, timeStart, timeEnd,skillName));
+// ClassSkill(cid, bid, idt, startDate, endDate, name, totalSeat, timeStart, timeEnd, "", status)
+                list.add(new ClassSkill(cid, bid, idt, startDate, endDate, nameClass, totalSeat, timeStart, timeEnd, skillName, status));
             }
             con.close();
             return list;
@@ -130,10 +142,6 @@ public class ClassDB {
             throw new RuntimeException(ex);
         }
     }
-    
-    
-    
-    
 
     public int getTotal() {
         try ( Connection con = DatabaseInfo.getConnect()) {

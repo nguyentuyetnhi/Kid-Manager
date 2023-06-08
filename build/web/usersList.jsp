@@ -44,17 +44,20 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                <tr>
-                                    <%int count = 0;%>
-                                    <c:forEach var="o" items="${listA}" >
+
+                                <%int count = 0;%>
+                                <c:forEach var="o" items="${listA}" >
+                                <a href="profileParent.jsp" style="cursor: pointer;">
+                                    <tr >
+
                                             <td><%count++;
-                                    out.print(count);%></td>
+                                                out.print(count);%></td>
                                         <td>
-                                            <img src="./img/${o.getImgAvt()}" alt="">
-                                            <p>${o.getFullName()}</p>
+                                            <!--<img src="./img/${o.getImgAvt()}" alt="">-->
+                                            ${o.getFullName()}
                                         </td>
                                         <td>
-                                            <p>${o.getDateOB()}</p>
+                                            ${o.getDateOB()}
                                         </td>
                                         <td>
                                             <c:if test="${o.gender == 'M'}">
@@ -65,10 +68,10 @@
                                             </c:if>
                                         </td>
                                         <td>
-                                            <p>${o.getAddress()}</p>
+                                            ${o.getAddress()}
                                         </td>
                                         <td>
-                                            <p>${o.getPhoneNumber()}</p>
+                                            ${o.getPhoneNumber()}
                                         </td>
                                         <td style="width: 20%;">
                                             <a href="profileParent.jsp" class="table-link">
@@ -90,9 +93,11 @@
                                                 </span>
                                             </a>
                                         </td>
-                                        </tr>
-                                    </c:forEach>
-                                </tbody>
+
+                                    </tr>
+                                </a>
+                            </c:forEach>
+                            </tbody>
 
                         </table>
                         <nav>

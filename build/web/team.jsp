@@ -29,7 +29,7 @@
                     <div class="row align-items-center">
                         <div class="col-12 col-md-4 text-center">
                             <h4 class="pt-3 text-170 text-600 text-primary-d1 letter-spacing">
-                              ${o.getNameClass()}
+                              ${o.className}
                             </h4>
                         </div>
 
