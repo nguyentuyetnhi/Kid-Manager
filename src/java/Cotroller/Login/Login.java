@@ -5,19 +5,27 @@
 package cotroller.login;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.User.Child;
 import model.User.Users;
+import model.UsersDB.ChildDB;
 import model.UsersDB.UsersDB;
+import model.proposal.Proposal;
+import model.proposal.ProposalDB;
 
 /**
  *
  * @author ASUS-PRO
  */
 public class Login extends HttpServlet {
+
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -29,15 +37,25 @@ public class Login extends HttpServlet {
      */
     public static final String ERROR = "login.jsp";
     public static final String SUCCESS = "index.jsp";
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String acc = request.getParameter("acc");
         String password = request.getParameter("password");
         Users user = null;
+
         if (acc != null && password != null && acc != "" && password != "" && !password.matches("^[\\s]+$") && !acc.matches("^[\\s]+$")) {
             user = UsersDB.checkLogin(acc, password);
             if (user != null) {
+                List<Child> listChild = null;
+                listChild = ChildDB.getChildbyIdParent(user.getIdUser());
+
+                List<Proposal> listProposal = null;
+                listProposal = ProposalDB.getProposalAll();
+
+                request.getSession().setAttribute("listChild", listChild);
+                request.getSession().setAttribute("listProposal", listProposal);
                 request.getSession().setAttribute("USER", user);
                 request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
             } else {
@@ -64,7 +82,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -78,7 +100,11 @@ public class Login extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

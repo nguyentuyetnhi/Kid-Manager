@@ -6,11 +6,16 @@ package controller.updateProfile;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User.Child;
+import model.User.Users;
 import model.UsersDB.ChildDB;
 import model.UsersDB.UsersDB;
 import validation.Validator;
@@ -34,7 +39,7 @@ public class AddNewChild extends HttpServlet {
     public static final String SUCCESS = "profileParent.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException, SQLException {
         response.setContentType("text/html;charset=UTF-8");
         String fullname = Validator.upCassName(request.getParameter("fullName"));
         String dob = request.getParameter("dob");
@@ -54,8 +59,12 @@ public class AddNewChild extends HttpServlet {
 //        this.imgAvt = imgAvt;
 
         Child child = new Child(idChild, fullname, idUser, dob, gender, "NULL", 0, 0, "NULL", "NULL");
-        
+        Users s = (Users) (request.getSession().getAttribute("USER"));
         if(ChildDB.newChild(child)){
+            List<Child> listChild = null;
+                listChild = ChildDB.getChildbyIdParent(s.getIdUser());
+                
+                request.getSession().setAttribute("listChild", listChild);
             request.setAttribute("msq", "Registration success !!!");
             request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
         }else{
@@ -77,7 +86,11 @@ public class AddNewChild extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddNewChild.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -91,7 +104,11 @@ public class AddNewChild extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        try {
+            processRequest(request, response);
+        } catch (SQLException ex) {
+            Logger.getLogger(AddNewChild.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**

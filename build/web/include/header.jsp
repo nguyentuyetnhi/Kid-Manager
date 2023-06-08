@@ -59,10 +59,19 @@
                 <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
                     <div class="navbar-nav font-weight-bold mx-auto py-0">
                         <a href="index.jsp" class="nav-item nav-link">Home</a>
-                        <a href="class.jsp" class="nav-item nav-link">Classes</a>
                         <a href="gallery.jsp" class="nav-item nav-link">Timetable</a>
-                        <a href="#" class="nav-item nav-link">Proposal</a>
-                        <a href="#" class="nav-item nav-link">Announcement</a>
+                        <a href="proposal.jsp" class="nav-item nav-link">Proposal</a>
+                        <a href="test_tool.jsp" class="nav-item nav-link">Announcement</a>
+                        
+                        <a href="ListClass" class="nav-item nav-link">Classes</a>
+
+                        <c:if test="${role == 'Teacher'}">
+                            <a href="class-list?id=${u.getIdUser()}" class="nav-item nav-link">Teachers</a>
+                        </c:if>
+                        <c:if test="${role == 'Admin'}">
+                            <a href="addCourse.jsp" class="nav-item nav-link">Course</a>
+                            <a href="admin-list?role=${'Teacher'}" class="nav-item nav-link">User Management</a>
+                        </c:if>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>
                             <div class="dropdown-menu rounded-0 m-0">

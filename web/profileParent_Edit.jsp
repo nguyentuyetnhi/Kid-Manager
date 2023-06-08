@@ -76,7 +76,7 @@
                                         <h6 class="mb-0 pt-2">Full Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control input_form" value="${u.getFullName()}" required>
+                                        <input type="text" name="fullName" class="form-control input_form" value="${u.getFullName()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">

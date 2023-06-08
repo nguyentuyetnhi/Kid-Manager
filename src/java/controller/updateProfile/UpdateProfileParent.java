@@ -44,11 +44,12 @@ public class UpdateProfileParent extends HttpServlet {
         String email = request.getParameter("email");
         String phoneNumber = request.getParameter("phoneNumber");
         String address = Validator.upCassName(request.getParameter("address"));
-// Users( idUser,fullName,address,email, password, idChild, certicate, imgAvt, role,  gender, dob, phoneNumber)        
-        Users user = new Users(idUser, name, address, email, "", "", "", "", "", gender, dob, phoneNumber);
+// Users( idUser,fullName,address,email, password, idChild, certicate, imgAvt, role,  gender, dob, phoneNumber) 
+        Users s = (Users) (request.getSession().getAttribute("USER"));
+        Users user = new Users(idUser, name, address, email,s.getPassword(), s.getIdChild(), s.getCerticate(), s.getImgAvt(), s.getRole(), gender, dob, phoneNumber);
 
         if (UsersDB.updateProfile(user)) {
-
+            request.getSession().setAttribute("USER", user);
             request.setAttribute("msq", "Update Success!!!");
             request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
 

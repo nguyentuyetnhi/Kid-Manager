@@ -9,6 +9,8 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 import model.DBUnitil.DatabaseInfo;
 import java.util.Random;
 
@@ -40,7 +42,7 @@ public class UsersDB {
                 String mail = rs.getString(6);
                 String phone = rs.getString(7);
                 String pw = rs.getString(8);
-                String role = rs.getString(9);
+                String role = rs.getString(9).trim();
                 String idChild = rs.getString(10);
                 String certicate = rs.getString(11);
                 String imgAvt = rs.getString(12);
@@ -207,6 +209,53 @@ public class UsersDB {
         }
         
     }
+
+    public int getTotal(String role) {
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("Select count(*) from Users where role=? ");
+            stmt.setString(1, role);
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
+        return 0;
+    }
+
+    public List<Users> getAllUsersByRole(String role1) {
+        List<Users> user = new ArrayList<Users>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT [idUser],[fullName]  ,[address],[dob] ,[gender],"
+                    + "[email]  ,[phoneNumber] ,[password]\n" +
+"                    ,[role] ,[idChild] ,[certicate] ,[imgAvt] FROM [dbo].[Users] where [role]='"+role1+"    '");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString(1);
+                String name = rs.getString(2);
+                String address = rs.getString(3);
+                Date dob = rs.getDate(4);
+                String gender = rs.getString(5);
+                String mail = rs.getString(6);
+                String phone = rs.getString(7);
+                String pw = rs.getString(8);
+                String role = rs.getString(9).trim();
+                String idChild = rs.getString(10);
+                String certicate = rs.getString(11);
+                String imgAvt = rs.getString(12);
+                user.add(new Users(id, name, address, mail, pw, idChild, certicate, imgAvt, role, gender, dob, phone));
+            }
+            con.close();
+            return user;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+     
+     
 }
 
 

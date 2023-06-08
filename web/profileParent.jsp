@@ -7,6 +7,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 
 <%@ include file="include/header.jsp" %>
 
@@ -127,10 +128,22 @@
                                 <div class="card-body">
                                     <h6 class="d-flex align-items-center mb-3">My child</h6>
 
-                                    <a href="#"><small>Name Child</small></a>
-                                    <hr>
-                                    <a href="#"><small>Name Child</small></a>
-                                    <hr>
+
+
+                                    <ul class="list-group list-group-flush">
+
+                                        <c:forEach items="${listChild}" var="child"> 
+
+                                            <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                <h6 class="mb-0">
+                                                    <a href="profileChild.jsp">${child.childName}</a>
+                                                </h6>
+                                                <span class="text-secondary"><a href="#">17A01</a></span>
+
+                                            </li>   
+                                        </c:forEach>
+                                    </ul>
+
                                     <div class="text-secondary">
                                         <a href="newChild.jsp"><input type="button" class="btn btn-primary px-4" value="Add new Child"></a>
                                     </div>
@@ -142,18 +155,33 @@
                                 <div class="card-body">
                                     <h6 class="d-flex align-items-center mb-3">My proposal</h6>
 
-                                    <a href="#"><small>Name proposal</small></a>
-                                    <small class="ml-3">Day post</small>
-                                    <small class="ml-3">Status</small>
-                                    <hr>
-                                    <a href="#"><small>Name proposal</small></a>
-                                    <small class="ml-3">Day post</small>
-                                    <small class="ml-3">Status</small>
-                                    <hr>
+                                    <ul class="list-group list-group-flush">
+
+                                        <c:forEach var="proposal" items="${listProposal}"> 
+                                            <c:if test="${proposal.idUser == u.getIdUser()}">
+
+                                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                                    <a href="ProposalView?idProposal=${proposal.idProposal}" class="nav-link proposal_item">
+                                                        
+                                                        <h6 class="mb-0"> ${proposal.title} </h6>
+                                                        
+                                                        <span class="ml-3">${proposal.getTimeStartF()}</span>
+                                                        
+                                                        <small class="ml-3 bg-success text-dark" style="border-radius: 20px; padding: 1px 5px">
+                                                            ${proposal.status}
+                                                        </small>
+                                                    </a>
+                                                </li>   
+                                            </c:if>
+                                        </c:forEach>
+                                    </ul>
+                                    <div class="text-secondary text-right">
+                                        <a href="newProposal.jsp"><input type="button" class="btn btn-primary px-4" value="New Proposal"></a>
+                                    </div>
+
                                 </div>
                             </div>
                         </div>
-
                     </div>
                 </div>
             </div>

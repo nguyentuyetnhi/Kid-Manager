@@ -4,6 +4,8 @@
  */
 package validation;
 
+import java.util.Scanner;
+
 /**
  *
  * @author PC
@@ -29,4 +31,5 @@ public class Validator {
         }
         return String.valueOf(charArray);
     }
+    
 }

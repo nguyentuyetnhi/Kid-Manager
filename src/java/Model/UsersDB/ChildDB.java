@@ -5,9 +5,15 @@
 package model.UsersDB;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import model.DBUnitil.DatabaseInfo;
 import model.User.Child;
+import model.User.Users;
 
 /**
  *
@@ -60,5 +66,102 @@ public class ChildDB {
 
         }
         return result;
+    }
+
+    public static List<Child> getChildbyIdParent(String idParent) throws SQLException {
+
+        Connection con = null;
+
+        List<Child> listChild = new ArrayList<>();
+
+        PreparedStatement pstm = null;
+        ResultSet rs = null;
+        try {
+            con = DatabaseInfo.getConnect();
+            if (con != null) {
+
+                String sql = "SELECT idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt "
+                        + " FROM Child "
+                        + " where idUser = ?";
+
+                pstm = con.prepareStatement(sql);
+                pstm.setString(1, idParent);
+
+                rs = pstm.executeQuery();
+
+                while (rs.next()) {
+                    String idChild = rs.getString(1);
+                    String childName = rs.getString(2);
+                    String idUser = rs.getString(3);
+                    Date dob = rs.getDate(4);
+                    String gender = rs.getString(5);
+                    String progress = rs.getString(6);
+                    double weight = rs.getDouble(7);
+                    int height = rs.getInt(8);
+                    String health = rs.getString(9);
+                    String imgAvt = rs.getString(10);
+
+                    listChild.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt));
+                }
+            }
+        } catch (ClassNotFoundException | SQLException e) {
+            e.printStackTrace();
+        } finally {
+            if (rs != null) {
+                rs.close();
+            }
+            if (pstm != null) {
+                pstm.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+        }
+        return listChild;
+    }
+
+    public ArrayList<Child> getAllUser(String idTeacher) {
+        ArrayList<Child> list = new ArrayList<>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT [SkillClass].[idClass]\n"
+                    + "      ,[SkillClass].[idChild]\n"
+                    + "      ,[SkillClass].[idChildCour]\n"
+                    + "      ,[SkillClass].[idTeacher]\n"
+                    + "      ,[childName]\n"
+                    + "      ,[idUser]\n"
+                    + "      ,[dob]\n"
+                    + "      ,[gender]\n"
+                    + "      ,[progress]\n"
+                    + "      ,[weight]\n"
+                    + "      ,[height]\n"
+                    + "      ,[health]\n"
+                    + "      ,[imgAvt]\n"
+                    + "  FROM [SkillClass]\n"
+                    + "  INNER JOIN Child\n"
+                    + "  ON Child.idChild  = SkillClass.idChild\n"
+                    + "   INNER JOIN ChildCours\n"
+                    + "  ON [ChildCours].idChildCour = [SkillClass].[idChildCour] \n"
+                    + "  where [ChildCours].idChildCour ='" + idTeacher + "'\n"
+                    + "  order by idChild");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String idChild = rs.getString(2);
+                Date dob = rs.getDate(7);
+                String childName = rs.getString(5);
+                String idUser = rs.getString(6);
+                String gender = rs.getString(8);
+                String progress = rs.getString(9);
+                double weight = rs.getDouble(10);
+                int height = rs.getInt(11);
+                String health = rs.getString(12);
+                String imgAvt = rs.getString(13);
+         
+                list.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt));
+            }
+            con.close();
+            return list;
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
     }
 }

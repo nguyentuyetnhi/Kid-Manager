@@ -1,7 +1,7 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ include file="include/header.jsp" %>
 
-    <%@ include file="include/header.jsp" %>
 
 <body>
 
@@ -27,95 +27,133 @@
                 <h1 class="mb-4">Classes for Your Kids</h1>
             </div>
             <div class="row">
-                <div class="col-lg-4 mb-5">
-                    <div class="card border-0 bg-light shadow-sm pb-2">
-                        <img class="card-img-top mb-2" src="img/class-1.jpg" alt="">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Drawing Class</h4>
-                            <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
-                        </div>
-                        <div class="card-footer bg-transparent py-4 px-5">
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                                <div class="col-6 py-1">3 - 6 Years</div>
+                <c:forEach var="o" items="${listcl}" >
+                    <div class="col-lg-4 mb-5">
+                        <form method="POST" action="registerClass">
+
+                            <div class="card border-0 bg-light shadow-sm pb-2">
+                                <img class="card-img-top mb-2" src="img/class-1.jpg" alt="">
+                                <div class="card-body text-center">
+                                    <h4 class="card-title">Class ${o.getClassName()}</h4>
+                                    <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
+                                </div>
+                                <div class="card-footer bg-transparent py-4 px-5">
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Skill Course</strong></div>
+                                        <div class="col-6 py-1">${o.getSkillName()}</div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right" for="seat"><strong>Total Seats</strong></div>
+                                        <div class="col-6 py-1" name="seat">${o.getTotalSeat()}</div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Time Start</strong></div>
+                                        <div class="col-6 py-1">${o.getTimeStart1()}</div>
+                                    </div>
+                                    <div class="row border-bottom">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Time End</strong></div>
+                                        <div class="col-6 py-1">${o.getTimeEnd1()}</div>
+                                    </div>
+                                    <div class="row">
+                                        <div class="col-6 py-1 text-right border-right"><strong>Tuition Fee</strong></div>
+                                        <div class="col-6 py-1">${o.getTutionFee()}$/ Month</div>
+                                    </div>
+                                </div>
+                                <span class="navbar-text text-center">
+                                    <a data-toggle="modal" data-target="#confirmClass">
+                                        <input type="button" class="btn btn-primary px-4 "  value="Join Now">
+                                    </a>
+                                    <span class="text-danger ">${msq}</span>
+                                </span>
                             </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                                <div class="col-6 py-1">40 Seats</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                                <div class="col-6 py-1">08:00 - 10:00</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 py-1 text-right border-right"><strong>Tution Fee</strong></div>
-                                <div class="col-6 py-1">$290 / Month</div>
-                            </div>
-                        </div>
-                        <a href="" class="btn btn-primary px-4 mx-auto mb-4">Join Now</a>
+
+                        </form>
                     </div>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <div class="card border-0 bg-light shadow-sm pb-2">
-                        <img class="card-img-top mb-2" src="img/class-2.jpg" alt="">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Language Learning</h4>
-                            <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
-                        </div>
-                        <div class="card-footer bg-transparent py-4 px-5">
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                                <div class="col-6 py-1">3 - 6 Years</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                                <div class="col-6 py-1">40 Seats</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                                <div class="col-6 py-1">08:00 - 10:00</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 py-1 text-right border-right"><strong>Tution Fee</strong></div>
-                                <div class="col-6 py-1">$290 / Month</div>
-                            </div>
-                        </div>
-                        <a href="" class="btn btn-primary px-4 mx-auto mb-4">Join Now</a>
-                    </div>
-                </div>
-                <div class="col-lg-4 mb-5">
-                    <div class="card border-0 bg-light shadow-sm pb-2">
-                        <img class="card-img-top mb-2" src="img/class-3.jpg" alt="">
-                        <div class="card-body text-center">
-                            <h4 class="card-title">Basic Science</h4>
-                            <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
-                        </div>
-                        <div class="card-footer bg-transparent py-4 px-5">
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Age of Kids</strong></div>
-                                <div class="col-6 py-1">3 - 6 Years</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Total Seats</strong></div>
-                                <div class="col-6 py-1">40 Seats</div>
-                            </div>
-                            <div class="row border-bottom">
-                                <div class="col-6 py-1 text-right border-right"><strong>Class Time</strong></div>
-                                <div class="col-6 py-1">08:00 - 10:00</div>
-                            </div>
-                            <div class="row">
-                                <div class="col-6 py-1 text-right border-right"><strong>Tution Fee</strong></div>
-                                <div class="col-6 py-1">$290 / Month</div>
-                            </div>
-                        </div>
-                        <a href="" class="btn btn-primary px-4 mx-auto mb-4">Join Now</a>
-                    </div>
-                </div>
+                </c:forEach>
             </div>
         </div>
     </div>
     <!-- Class End -->
 
+
+    <div id="confirmClass" class="modal fade " role="dialog" >
+        <div class="modal-dialog modal-lg" role="content">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Confirm Register Class</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form action="registerClass" method="POST">
+                        <div class="form-row row container">
+                            <div class="row mb-3 col-12">
+                                <div class="col-sm-3 col-12">
+                                    <h6 class="mb-0 pt-2">Parent Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name ="parent" class="form-control input_confirm" value="${u.getFullName()}"required>
+                                </div>
+                            </div>
+                            <div class="row mb-3 col-12">
+                                <div class="col-sm-3 col-12">
+                                    <h6 class="mb-0 pt-2">Child Name</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name ="child" class="form-control input_confirm" value="${u.getFullName()}"required>
+                                </div>
+                            </div>
+                            <div class="row mb-3 col-12">
+                                <div class="col-sm-3 col-12">
+                                    <h6 class="mb-0 pt-2">Skill Course</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name ="skillcourse" class="form-control input_confirm" value="${u.getFullName()}"required>
+                                </div>
+                            </div>
+                            <div class="row mb-3 col-12">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0 pt-2">Total Seats</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="number" name ="totalseat" class="form-control input_confirm" value="${seat}"required>
+                                </div>
+                            </div>
+                            <div class="row mb-3 col-12">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0 pt-2">Time Start</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name ="timestart" class="form-control input_confirm" value="8:00"required>
+                                </div>
+                            </div>
+                            <div class="row mb-3 col-12">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0 pt-2">Time End</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="text" name ="timeend" class="form-control input_confirm" value="10:00"required>
+                                </div>
+                            </div>
+                            <div class="row mb-3 col-12">
+                                <div class="col-sm-3">
+                                    <h6 class="mb-0 pt-2">Tution Fee</h6>
+                                </div>
+                                <div class="col-sm-9 text-secondary">
+                                    <input type="number" name ="tutionfee" class="form-control input_confirm" value="${u.getPhoneNumber()}" disabled>
+                                </div>
+                            </div>
+                            <div class="form-row text-left col-12">
+                                <button type="button" class="btn btn-secondary btn-sm ml-auto"
+                                        data-dismiss="modal">Cancel</button>
+                                <button type="submit" class="btn btn-primary btn-sm ml-3 px-5">Save</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- Registration Start -->
     <div class="container-fluid py-5">
@@ -167,9 +205,8 @@
     </div>
     <!-- Registration End -->
 
-
     <!-- Footer Start -->
-     <%@ include file="include/footer.jsp" %>
+    <%@ include file="include/footer.jsp" %>
     <!-- Footer End -->
 
 
@@ -191,6 +228,18 @@
 
     <!-- Template Javascript -->
     <script src="js/main.js"></script>
+    <script>
+        var inputForms = document.querySelectorAll('.input_form');
+        var inputConfirms = document.querySelectorAll('.input_confirm');
+
+        for (let i = 0; i < inputForms.length; i++) {
+            inputForms[i].addEventListener('change', function () {
+                console.log(i);
+                inputConfirms[i].value = inputForms[i].value;
+            });
+        }
+
+    </script>
 </body>
 
 </html>
