@@ -74,7 +74,7 @@
                                             ${o.getPhoneNumber()}
                                         </td>
                                         <td style="width: 20%;">
-                                            <a href="profileParent.jsp" class="table-link">
+                                            <a href="ProfileById?idUser=${o.getIdUser()}" class="table-link">
                                                 <span class="fa-stack">
                                                     <i class="fa fa-square fa-stack-2x"></i>
                                                     <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>

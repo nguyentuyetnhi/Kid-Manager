@@ -14,10 +14,10 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User.Child;
+import model.child.Child;
 import model.User.Users;
-import model.UsersDB.ChildDB;
-import model.UsersDB.UsersDB;
+import model.child.ChildDB;
+import model.User.UsersDB;
 import validation.Validator;
 
 /**
@@ -36,7 +36,7 @@ public class AddNewChild extends HttpServlet {
      * @throws IOException if an I/O error occurs
      */
     public static final String ERROR = "newChild.jsp";
-    public static final String SUCCESS = "profileParent.jsp";
+    public static final String SUCCESS = "profileChild.jsp";
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException, SQLException {
@@ -46,32 +46,26 @@ public class AddNewChild extends HttpServlet {
         String gender = request.getParameter("gender");
         String idUser = request.getParameter("idUser");
         String idChild = UsersDB.createID();
-        
-//         this.idChild = idChild;
-//        this.childName = childName;
-//        this.idUser = idUser;
-//        this.dob = dob;
-//        this.gender = gender;
-//        this.progress = progress;
-//        this.weight = weight;
-//        this.height = height;
-//        this.health = health;
-//        this.imgAvt = imgAvt;
 
         Child child = new Child(idChild, fullname, idUser, dob, gender, "NULL", 0, 0, "NULL", "NULL");
         Users s = (Users) (request.getSession().getAttribute("USER"));
-        if(ChildDB.newChild(child)){
+
+        if (ChildDB.newChild(child)) {
             List<Child> listChild = null;
-                listChild = ChildDB.getChildbyIdParent(s.getIdUser());
-                
-                request.getSession().setAttribute("listChild", listChild);
+            listChild = ChildDB.getChildbyIdParent(s.getIdUser());
+
+            Users userRequest = null;
+            userRequest = UsersDB.getUserById(idUser);
+            request.getSession().setAttribute("listChild", listChild);
+            request.setAttribute("userRequest", userRequest);
+            request.setAttribute("childRequest", child);
             request.setAttribute("msq", "Registration success !!!");
             request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
-        }else{
+        } else {
             request.setAttribute("msq", "Registration Fail !!!");
             request.getRequestDispatcher(response.encodeURL(ERROR)).forward(request, response);
         }
-        
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

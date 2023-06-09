@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User.ClassSkill;
 import model.User.Users;
-import model.UsersDB.ClassDB;
+import model.child.ClassDB;
 
 /**
  *

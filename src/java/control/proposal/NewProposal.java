@@ -16,7 +16,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.UsersDB.UsersDB;
+import model.User.UsersDB;
 import model.proposal.Proposal;
 import model.proposal.ProposalDB;
 
@@ -56,7 +56,7 @@ public class NewProposal extends HttpServlet {
         DateTimeFormatter formatterAfter7 = DateTimeFormatter.ofPattern("dd-MM-yyyy HH:mm:ss");
 //        DateTimeFormatter timeEnd = after7Days.format(formatterAfter7);
 
-        Proposal pro = new Proposal(idProposal, idUser, title, contentProposal, now, after7Days, 0, "active");
+        Proposal pro = new Proposal(idProposal, idUser, title, contentProposal, now, after7Days, 0, "active", 0);
 
         if (ProposalDB.newProposal(pro)) {
             List<Proposal> listProposal = null;

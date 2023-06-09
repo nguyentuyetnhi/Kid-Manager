@@ -11,7 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User.Users;
-import model.UsersDB.UsersDB;
+import model.User.UsersDB;
 import org.apache.catalina.User;
 import validation.Validator;
 
@@ -46,10 +46,11 @@ public class UpdateProfileParent extends HttpServlet {
         String address = Validator.upCassName(request.getParameter("address"));
 // Users( idUser,fullName,address,email, password, idChild, certicate, imgAvt, role,  gender, dob, phoneNumber) 
         Users s = (Users) (request.getSession().getAttribute("USER"));
-        Users user = new Users(idUser, name, address, email,s.getPassword(), s.getIdChild(), s.getCerticate(), s.getImgAvt(), s.getRole(), gender, dob, phoneNumber);
+        Users user = new Users(idUser, name, address, email, s.getPassword(), s.getIdChild(), s.getCerticate(), s.getImgAvt(), s.getRole(), gender, dob, phoneNumber);
 
         if (UsersDB.updateProfile(user)) {
             request.getSession().setAttribute("USER", user);
+            request.setAttribute("userRequest", user);
             request.setAttribute("msq", "Update Success!!!");
             request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
 

@@ -24,8 +24,8 @@
                             <div class="d-flex flex-column align-items-center text-center">
                                 <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle" width="150">
                                 <div class="mt-3">
-                                    <h4>${u.getFullName()}</h4>
-                                    <p class="text-secondary mb-1">ID: @${u.getIdUser()}</p>
+                                    <h4>${childRequest.childName.trim()}</h4>
+                                    <p class="text-secondary mb-1">ID: @${childRequest.getIdChild()}</p>
                                 </div>
                             </div>
                         </div>
@@ -58,7 +58,7 @@
                                     <h6 class="mb-0">Parent Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    ${u.getFullName()}
+                                    ${userRequest.getFullName()}
                                 </div>
                             </div>
                             <hr>
@@ -67,7 +67,7 @@
                                     <h6 class="mb-0">Full Name</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    ${u.getFullName()}
+                                    ${childRequest.childName.trim()}
                                 </div>
                             </div>
                             <hr>
@@ -76,7 +76,7 @@
                                     <h6 class="mb-0">Birthday</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    ${u.getDob()}
+                                    ${childRequest.getDob()}
                                 </div>
                             </div>
                             <hr>
@@ -86,10 +86,10 @@
                                 </div>
                                 <div class="col-sm-9 text-secondary">
                                     <c:choose>
-                                        <c:when test="${u.gender.equals('M')}">
+                                        <c:when test="${childRequest.gender.trim().equals('M')}">
                                             Male
                                         </c:when>
-                                        <c:when test="${u.gender.equals('F')}">
+                                        <c:when test="${childRequest.gender.trim().equals('F')}">
                                             Female
                                         </c:when>
                                     </c:choose>
@@ -101,16 +101,18 @@
                                     <h6 class="mb-0">Address</h6>
                                 </div>
                                 <div class="col-sm-9 text-secondary">
-                                    ${u.getAddress()}
+                                    ${userRequest.getAddress()}
                                 </div>
                             </div>
                             <hr>
-                            <div class="row">
-                                <div class="col-sm-12">
-                                    <a class="btn btn-primary px-5" href="profileChild_Edit.jsp">Edit</a>
-                                    <span class=" ml-5 text-success ">${msq}</span>
+                            <c:if test="${u.idUser.trim() == userRequest.getIdUser().trim()}">
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        <a class="btn btn-primary px-5" href="profileChild_Edit.jsp">Edit</a>
+                                        <span class=" ml-5 text-success ">${msq}</span>
+                                    </div>
                                 </div>
-                            </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>

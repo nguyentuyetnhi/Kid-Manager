@@ -2,15 +2,15 @@
 <web-app version="3.1" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd">
     <servlet>
         <servlet-name>Login</servlet-name>
-        <servlet-class>cotroller.login.Login</servlet-class>
+        <servlet-class>controller.login.Login</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Registration</servlet-name>
-        <servlet-class>cotroller.login.Registration</servlet-class>
+        <servlet-class>controller.login.Registration</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>Logout</servlet-name>
-        <servlet-class>cotroller.login.Logout</servlet-class>
+        <servlet-class>controller.login.Logout</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>UpdateProfileParent</servlet-name>
@@ -42,11 +42,43 @@
     </servlet>
     <servlet>
         <servlet-name>addCourse</servlet-name>
-        <servlet-class>DController.addCourse</servlet-class>
+        <servlet-class>controller.course.addCourse</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ListClass</servlet-name>
         <servlet-class>cotroller.list.ListClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileById</servlet-name>
+        <servlet-class>controller.updateProfile.ProfileById</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileChildById</servlet-name>
+        <servlet-class>model.child.ProfileChildById</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileParentEdit</servlet-name>
+        <servlet-class>controller.updateProfile.ProfileParentEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewAnnouncement</servlet-name>
+        <servlet-class>controller.announcement.NewAnnouncement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AnnouncementList</servlet-name>
+        <servlet-class>controller.announcement.AnnouncementList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>adClassList</servlet-name>
+        <servlet-class>cotroller.list.adClassList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VoteProposal</servlet-name>
+        <servlet-class>control.proposal.VoteProposal</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>registerClass</servlet-name>
+        <servlet-class>cotroller.list.registerClass</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -95,6 +127,38 @@
     <servlet-mapping>
         <servlet-name>ListClass</servlet-name>
         <url-pattern>/ListClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileById</servlet-name>
+        <url-pattern>/ProfileById</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileChildById</servlet-name>
+        <url-pattern>/ProfileChildById</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileParentEdit</servlet-name>
+        <url-pattern>/ProfileParentEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewAnnouncement</servlet-name>
+        <url-pattern>/NewAnnouncement</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AnnouncementList</servlet-name>
+        <url-pattern>/AnnouncementList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>adClassList</servlet-name>
+        <url-pattern>/adClassList</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VoteProposal</servlet-name>
+        <url-pattern>/VoteProposal</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>registerClass</servlet-name>
+        <url-pattern>/registerClass</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

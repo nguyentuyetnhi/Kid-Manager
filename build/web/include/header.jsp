@@ -3,7 +3,7 @@
     Created on : May 24, 2023, 8:41:52 AM
     Author     : ASUS-PRO
 --%>
-<%@page import="Model.UsersDB.*"%>
+<%--<%@page import="Model.UsersDB.*"%>--%>
 <%@page import="Model.User.*"%>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
@@ -61,7 +61,7 @@
                         <a href="index.jsp" class="nav-item nav-link">Home</a>
                         <a href="gallery.jsp" class="nav-item nav-link">Timetable</a>
                         <a href="proposal.jsp" class="nav-item nav-link">Proposal</a>
-                        <a href="test_tool.jsp" class="nav-item nav-link">Announcement</a>
+                        <a href="AnnouncementList" class="nav-item nav-link">Announcement</a>
                         
                         <a href="ListClass" class="nav-item nav-link">Classes</a>
 
@@ -70,6 +70,7 @@
                         </c:if>
                         <c:if test="${role == 'Admin'}">
                             <a href="addCourse.jsp" class="nav-item nav-link">Course</a>
+                            <a href="adClassList" class="nav-item nav-link">Class List</a>
                             <a href="admin-list?role=${'Teacher'}" class="nav-item nav-link">User Management</a>
                         </c:if>
                         <div class="nav-item dropdown">
@@ -95,7 +96,7 @@
                         <div class="nav-item dropdown row">
                             <a class="btn btn-primary px-5 nav-link dropdown-toggle col-12" data-toggle="dropdown" href="#">${u.getFullName()}</a>
                             <div class="dropdown-menu col-10 rounded-bottom ml-3">
-                                <a href="profileParent.jsp" class="dropdown-item">My Profile</a>
+                                <a href="ProfileById?idUser=${user1.idUser}" class="dropdown-item">My Profile</a>
                                 <a href="logout" class="dropdown-item">Logout</a>
                             </div>
                         </div>

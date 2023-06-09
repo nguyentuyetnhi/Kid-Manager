@@ -10,8 +10,8 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User.Child;
-import model.UsersDB.ChildDB;
+import model.child.Child;
+import model.child.ChildDB;
 
 /**
  *

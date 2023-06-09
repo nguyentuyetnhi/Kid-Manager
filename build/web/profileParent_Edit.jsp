@@ -25,8 +25,8 @@
                                 <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
                                      class="rounded-circle p-1 bg-primary" width="110">
                                 <div class="mt-3">
-                                    <h4>${u.getFullName()}</h4>
-                                    <p class="text-secondary mb-1">ID: @${u.getIdUser()}</p>
+                                    <h4>${userRequest.getFullName()}</h4>
+                                    <p class="text-secondary mb-1">ID: @${userRequest.getIdUser()}</p>
                                 </div>
                             </div>
                             <hr class="my-4">
@@ -76,7 +76,7 @@
                                         <h6 class="mb-0 pt-2">Full Name</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" name="fullName" class="form-control input_form" value="${u.getFullName()}" required>
+                                        <input type="text" name="fullName" class="form-control input_form" value="${userRequest.getFullName()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -84,7 +84,7 @@
                                         <h6 class="mb-0 pt-2">Birthday</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input name="dob" class="form-control input_form" type="date" value="${u.getDob()}" required>
+                                        <input name="dob" class="form-control input_form" type="date" value="${userRequest.getDob()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -103,7 +103,7 @@
                                         <h6 class="mb-0 pt-2">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control input_form" value="${u.getEmail()}" required>
+                                        <input type="text" class="form-control input_form" value="${userRequest.getEmail()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -111,7 +111,7 @@
                                         <h6 class="mb-0 pt-2">Phone</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control input_form" value="${u.getPhoneNumber()}" required>
+                                        <input type="text" class="form-control input_form" value="${userRequest.getPhoneNumber()}" required>
                                     </div>
                                 </div>
 
@@ -120,7 +120,7 @@
                                         <h6 class="mb-0 pt-2">Address</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control input_form" value="${u.getAddress()}" required>
+                                        <input type="text" class="form-control input_form" value="${userRequest.getAddress()}" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -157,7 +157,7 @@
                                                 <h6 class="mb-0 pt-2">Full Name</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="fullName" class="form-control input_confirm" value="${u.getFullName()}"required>
+                                                <input type="text" name ="fullName" class="form-control input_confirm" value="${userRequest.getFullName()}"required>
                                             </div>
                                         </div>
                                         <div class="row mb-3 col-12">
@@ -165,7 +165,7 @@
                                                 <h6 class="mb-0 pt-2">Birthday</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input name ="dob" class="form-control input_confirm"  type="date" value="${u.getDob()}" required>
+                                                <input name ="dob" class="form-control input_confirm"  type="date" value="${userRequest.getDob()}" required>
                                             </div>
                                         </div>
                                         <div class="row mb-3 col-12">
@@ -184,7 +184,7 @@
                                                 <h6 class="mb-0 pt-2">Email</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="email" class="form-control input_confirm" value="${u.getEmail()}"required>
+                                                <input type="text" name ="email" class="form-control input_confirm" value="${userRequest.getEmail()}"required>
                                             </div>
                                         </div>
                                         <div class="row mb-3 col-12">
@@ -192,7 +192,7 @@
                                                 <h6 class="mb-0 pt-2">Phone</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="phoneNumber" class="form-control input_confirm" value="${u.getPhoneNumber()}"required>
+                                                <input type="text" name ="phoneNumber" class="form-control input_confirm" value="${userRequest.getPhoneNumber()}"required>
                                             </div>
                                         </div>
 
@@ -201,8 +201,8 @@
                                                 <h6 class="mb-0 pt-2">Address</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="address" class="form-control input_confirm" value="${u.getAddress()}"required>
-                                                <input type="hidden" name ="idUser" class="form-control input_confirm" value="${u.getIdUser()}">
+                                                <input type="text" name ="address" class="form-control input_confirm" value="${userRequest.getAddress()}"required>
+                                                <input type="hidden" name ="idUser" class="form-control input_confirm" value="${userRequest.getIdUser()}">
                                             </div>
                                         </div>
                                         <div class="form-row text-left col-12">

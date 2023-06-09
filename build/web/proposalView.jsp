@@ -17,6 +17,7 @@
         .proposal_item:hover{
             background-color: rgb(247, 247, 255);
         }
+
     </style>
 </head>
 <body>
@@ -61,29 +62,62 @@
             <div class="col-md-8">
                 <div class="card mb-3">
                     <div class="card-body">
-                        
-                            <div class="row">
-                                <div class="col-sm-8 text-secondary font-weight-bold " style="font-size: large">
-                                    ${proIdProposal.title}
-                                </div>
 
-                                <div class=" col-sm-4 text-secondary text-right">
-                                    <span class="bg-success"  style="border-radius: 20px; padding: 1px 5px">${proIdProposal.status}</span>
-                                </div>
-                                <div class="col-sm-3 text-secondary">
-                                    Content
-                                </div>
-                                <div class="col-sm-9 text-dark">
-                                    ${proIdProposal.contentProposal}
-                                </div>
-                                <div class="col-sm-12 text-secondary text-right">
-                                    ${proIdProposal.timeStart}-${proIdProposal.timeEnd}
-                                </div>
+                        <div class="row">
+                            <div class="col-sm-8 text-secondary font-weight-bold " style="font-size: large">
+                                ${proIdProposal.title}
                             </div>
-                        
+
+                            <div class=" col-sm-4 text-secondary text-right">
+                                <span class="bg-success"  style="border-radius: 20px; padding: 1px 5px">${proIdProposal.status}</span>
+                            </div>
+                            <div class="col-sm-3 text-secondary">
+                                Content
+                            </div>
+                            <div class="col-sm-9 text-dark">
+                                ${proIdProposal.contentProposal}
+                            </div>
+                            <div class="col-sm-12 text-secondary text-right">
+                                ${proIdProposal.getTimeStartF()} - ${proIdProposal.getTimeEndF()}
+                            </div>
+                            <div class="col-sm-3 text-secondary mt-5">
+                                Vote: ${proIdProposal.getTotalVote()}
+                            </div>
+                            <c:choose>
+                                <c:when test="${proIdProposal.getTotalVote() > 0}">
+                                    <div class="col-sm-9 card-body mt-3">
+                                        <h4 class="small font-weight-bold">
+                                            Vote 
+                                            <span class="float-right">
+                                                Accept: ${proIdProposal.getAccept()/proIdProposal.getTotalVote()*100}%
+                                            </span>
+                                        </h4>
+                                        <div class="progress ">
+                                            <div class="progress-bar bg-success" role="progressbar" 
+                                                 style="width: ${proIdProposal.getAccept()/proIdProposal.getTotalVote()*100}%" 
+                                                 aria-valuenow="100" aria-valuemin="0" aria-valuemax="100">
+                                            </div>
+                                        </div>
+                                    </div>
+                                                 
+                                </c:when>
+                                <c:when test="${proIdProposal.getTotalVote() == 0}">
+                                    <div class="col-sm-9 card-body mt-3">
+                                        <h4 class="small font-weight-bold">
+                                            Vote
+                                            <span class="float-right">
+                                                Accept: 0%
+                                            </span>
+                                        </h4>
+                                        <div class="progress ">
+                                            <div class="progress-bar bg-success" role="progressbar" style="width: ${0}%" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div>
+                                        </div>
+                                    </div>
+                                </c:when>
+                            </c:choose>
+                        </div>
                     </div>
                 </div>
-
 
                 <div class="card mb-3">
                     <div class="card-body">
@@ -96,17 +130,22 @@
                                     <div class="col-12 text-center">
                                         <div class="btn-group btn-group-toggle row" data-toggle="buttons">
                                             <label class="btn btn-success" style="width:  11rem;">
-                                                <input type="radio" name="options" id="option1" autocomplete="off" >
+                                                <input type="radio" name="options" id="option1" autocomplete="off" value="1" >
                                                 Yes
                                             </label>
                                             <label class="btn btn-danger " style="width:  11rem;">
-                                                <input type="radio" name="options" id="option2" autocomplete="off"> 
+                                                <input type="radio" name="options" id="option2" autocomplete="off" value="0" > 
                                                 No
                                             </label>
                                         </div>
                                     </div>
                                     <div class="form-group col-12 text-center mt-3">
-                                        <input type="submit" class="btn btn-primary px-4"  value="Vote">
+                                        <span class="navbar-text">
+                                            <a data-toggle="modal" data-target="#previewVote">
+                                                <input type="submit" class="btn btn-primary px-4" id="vote_"  value="Vote">
+                                            </a>
+                                            <span class=" ${text-color} ">${msq}</span>
+                                        </span>
                                     </div>
                                 </form>
                             </div>
@@ -115,10 +154,77 @@
             </div>
         </div>
     </div>
+    <div id="" class="modal fade previewVote" role="dialog">
+        <div class="modal-dialog modal-lg" role="content">
+            <!-- Modal content-->
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h4 class="modal-title">Cast your vote</h4>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <form action="VoteProposal" method="POST">
+                        <div class="form-row row container">
+                            <div class="col-12">
+                                <div class="col-12 text-center" id="you_say">
+
+
+                                </div>
+                            </div>
+
+                            <div class="form-row text-left col-12 mt-3 ">
+                                <button type="button" class="btn btn-secondary btn-sm ml-auto" data-dismiss="modal">
+                                    Cancel
+                                </button>
+
+                                <input type="hidden" class="" id="id" name="idUser" value="${u.idUser}">
+                                <input type="hidden" class="form_submit" id="voteValue" name="vote" value="">
+                                <input type="hidden" class="form_submit" id="id" name="idProposal" value="${proIdProposal.idProposal}">
+
+
+                                <button type="submit" class="btn btn-primary btn-sm ml-3 px-5">Vote</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+
     <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script><script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.4.1/dist/js/bootstrap.bundle.min.js"></script>
     <script type="text/javascript">
 
+
+//        console.log(value_Vote)
+//        if (value_Vote == 1 || value_Vote == 0) {
+//            document.getElementById("vote_").disabled = true;
+//        }
+        var vote_ = document.getElementById("vote_");
+        var voteValue = document.getElementById("voteValue");
+        var previewVote_ = document.querySelector('.previewVote');
+        var you_say = document.getElementById("you_say");
+        vote_.onclick = () => {
+            var value_Vote = document.querySelector('input[name="options"]:checked').value;
+            if (value_Vote == 1) {
+                you_say.innerHTML = '<h2 class="text-success">You Say  "Yes" </h2>'
+                previewVote_.id = "previewVote";
+                voteValue.value = value_Vote;
+            } else {
+                you_say.innerHTML = '<h2 class="text-danger">You Say  "No" </h2>'
+                previewVote_.id = "previewVote";
+                voteValue.value = value_Vote;
+            }
+        }
+
     </script>
+    <script>
+
+
+
+    </script>
+
 </body>
 </html>

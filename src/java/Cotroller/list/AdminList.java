@@ -12,7 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User.Users;
-import model.UsersDB.UsersDB;
+import model.User.UsersDB;
 
 /**
  *

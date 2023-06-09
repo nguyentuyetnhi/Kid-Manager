@@ -12,6 +12,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import model.DBUnitil.DatabaseInfo;
+import model.User.UserVote;
 
 /**
  *
@@ -28,8 +29,8 @@ public class ProposalDB {
             con = DatabaseInfo.getConnect();
             if (con != null) {
                 String sql = "INSERT INTO Proposal "
-                        + "(idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status)"
-                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
+                        + "(idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status, totalVote)"
+                        + " VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 
                 PreparedStatement stmt = con.prepareStatement(sql);
                 stmt.setString(1, pro.getIdProposal());
@@ -40,6 +41,7 @@ public class ProposalDB {
                 stmt.setObject(6, pro.getTimeEnd());
                 stmt.setInt(7, pro.getAccept());
                 stmt.setString(8, pro.getStatus());
+                stmt.setInt(9, pro.getTotalVote());
 
                 int value = stmt.executeUpdate();
 
@@ -66,7 +68,7 @@ public class ProposalDB {
             con = DatabaseInfo.getConnect();
             if (con != null) {
 
-                String sql = "SELECT idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status "
+                String sql = "SELECT idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status, totalVote "
                         + " FROM Proposal ";
 
                 pstm = con.prepareStatement(sql);
@@ -80,13 +82,16 @@ public class ProposalDB {
                     String contentProposal = rs.getString(4);
 
                     LocalDateTime timeStart = rs.getTimestamp("timeStart").toLocalDateTime();
-                    
+
                     LocalDateTime timeEnd = rs.getTimestamp("timeEnd").toLocalDateTime();
 
                     int accept = rs.getInt(7);
+
                     String status = rs.getString(8);
 
-                    listProposal.add(new Proposal(idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status));
+                    int totalVote = rs.getInt(9);
+
+                    listProposal.add(new Proposal(idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status, totalVote));
 
                 }
             }
@@ -118,7 +123,7 @@ public class ProposalDB {
             con = DatabaseInfo.getConnect();
             if (con != null) {
 
-                String sql = "SELECT idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status "
+                String sql = "SELECT idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status, totalVote "
                         + " FROM Proposal "
                         + " Where idProposal =?";
 
@@ -138,8 +143,9 @@ public class ProposalDB {
 //                    LocalDateTime timeEnd = (LocalDateTime) rs.getObject(6);
                     int accept = rs.getInt(7);
                     String status = rs.getString(8);
+                    int totalVote = rs.getInt(9);
 
-                    pro = new Proposal(idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status);
+                    pro = new Proposal(idProposal, idUser, title, contentProposal, timeStart, timeEnd, accept, status, totalVote);
 
                 }
             }
@@ -157,6 +163,46 @@ public class ProposalDB {
             }
         }
         return pro;
+    }
+
+    public static boolean setCountAcceptVote(UserVote userVote) {
+        boolean result = false;
+        Connection con = null;
+        PreparedStatement stmt = null;
+
+        try {
+
+            con = DatabaseInfo.getConnect();
+            if (con != null) {
+
+                if (userVote.getVote() == 1) {
+                    String sql = "Update [Proposal] \n"
+                            + "  set [accept] = [accept]+1 , [totalVote] = [totalVote]+1\n"
+                            + "  where [idProposal] = ? ";
+
+                    stmt = con.prepareStatement(sql);
+                    stmt.setString(1, userVote.getIdProposal());
+                }
+                if (userVote.getVote() == 0) {
+                    String sql = "Update [Proposal] \n"
+                            + "  set [totalVote] = [totalVote]+1\n"
+                            + "  where [idProposal] = ? ";
+                    
+                    stmt = con.prepareStatement(sql);
+                    stmt.setString(1, userVote.getIdProposal());
+                }
+
+                int value = stmt.executeUpdate();
+
+                result = value > 0 ? true : false;
+                con.close();
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+
+        }
+        return result;
     }
 
 }

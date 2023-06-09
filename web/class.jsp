@@ -35,32 +35,38 @@
                                 <img class="card-img-top mb-2" src="img/class-1.jpg" alt="">
                                 <div class="card-body text-center">
                                     <h4 class="card-title">Class ${o.getClassName()}</h4>
+                                    <input type="hidden" name ="className" class="form-control input_confirm" value="${o.getClassName()}"required>
                                     <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
                                 </div>
                                 <div class="card-footer bg-transparent py-4 px-5">
                                     <div class="row border-bottom">
                                         <div class="col-6 py-1 text-right border-right"><strong>Skill Course</strong></div>
                                         <div class="col-6 py-1">${o.getSkillName()}</div>
+                                        <input type="hidden" name ="skillName" class="form-control input_confirm" value="${o.getSkillName()}"required>
                                     </div>
                                     <div class="row border-bottom">
                                         <div class="col-6 py-1 text-right border-right" for="seat"><strong>Total Seats</strong></div>
                                         <div class="col-6 py-1" name="seat">${o.getTotalSeat()}</div>
+                                        <input type="hidden" name ="totalSeat" class="form-control input_confirm" value="${o.getTotalSeat()}"required>
                                     </div>
                                     <div class="row border-bottom">
                                         <div class="col-6 py-1 text-right border-right"><strong>Time Start</strong></div>
                                         <div class="col-6 py-1">${o.getTimeStart1()}</div>
+                                        <input type="hidden" name ="timeStart" class="form-control input_confirm" value="${o.getTimeStart1()}"required>
                                     </div>
                                     <div class="row border-bottom">
                                         <div class="col-6 py-1 text-right border-right"><strong>Time End</strong></div>
                                         <div class="col-6 py-1">${o.getTimeEnd1()}</div>
+                                        <input type="hidden" name ="timeEnd" class="form-control input_confirm" value="${o.getTimeEnd1()}"required>
                                     </div>
                                     <div class="row">
                                         <div class="col-6 py-1 text-right border-right"><strong>Tuition Fee</strong></div>
-                                        <div class="col-6 py-1">TutionFee/ Month</div>
+                                        <div class="col-6 py-1">${o.getPriceSkillCour()}$/ Month</div>
+                                        <input type="hidden" name ="priceSkillCour" class="form-control input_confirm" value="${o.getPriceSkillCour()}"required>
                                     </div>
                                 </div>
                                 <span class="navbar-text text-center">
-                                    <a data-toggle="modal" data-target="#confirmClass">
+                                    <a data-toggle="modal" data-target="#confirmClass${o.idChildCour.trim()}">
                                         <input type="button" class="btn btn-primary px-4 "  value="Join Now">
                                     </a>
                                     <span class="text-danger ">${msq}</span>
@@ -69,6 +75,92 @@
 
                         </form>
                     </div>
+                    <div id="confirmClass${o.idChildCour.trim()}" class="modal fade " role="dialog" >
+                        <div class="modal-dialog modal-lg" role="content">
+                            <!-- Modal content-->
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h4 class="modal-title">Confirm Register Class</h4>
+                                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                </div>
+                                <div class="modal-body">
+                                    <form action="registerClass" method="POST">
+                                        <div class="form-row row container">
+                                            <div class="row mb-3 col-12">
+                                                <div class="col-sm-3 col-12">
+                                                    <h6 class="mb-0 pt-2">Parent Name</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name ="parent" class="form-control input_confirm" value="${u.getFullName()}" disabled>
+                                                    <input type="hidden" name="idChildCour"value="${o.getIdChildCour()}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 col-12">
+                                                <div class="col-sm-3 col-12">
+                                                    <h6 class="mb-0 pt-2">Child Name</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <select class="form-select col-sm-12 py-2 form-control  custom-select input_form" name="idChild" required>
+                                                        <!--Vongf for-->
+                                                        <c:forEach items="${listChild}" var="child">
+                                                        <option value="${child.idChild}"  >${child.childName}</option>
+                                                        </c:forEach>
+                                                        <!--vong fo-->
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 col-12">
+                                                <div class="col-sm-3 col-12">
+                                                    <h6 class="mb-0 pt-2">Class Name</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name ="classname" class="form-control input_confirm" value="${o.getClassName()}"disabled>
+                                                    <input type="hidden" name="idTeacher"value="${o.getIdteacher()}">
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 col-12">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0 pt-2">Total Seats</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="number" name ="totalseat" class="form-control input_confirm" value="${o.getTotalSeat()}"disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 col-12">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0 pt-2">Time Start</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name ="timestart" class="form-control input_confirm" value="${o.getTimeStart1()}"disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 col-12">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0 pt-2">Time End</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="text" name ="timeend" class="form-control input_confirm" value="${o.getTimeEnd1()}" disabled>
+                                                </div>
+                                            </div>
+                                            <div class="row mb-3 col-12">
+                                                <div class="col-sm-3">
+                                                    <h6 class="mb-0 pt-2">Tution Fee</h6>
+                                                </div>
+                                                <div class="col-sm-9 text-secondary">
+                                                    <input type="number" name ="tutionfee" class="form-control input_confirm" value="${o.getPriceSkillCour()}"  disabled>
+                                                </div>
+                                            </div>
+                                            <div class="form-row text-left col-12">
+                                                <button type="button" class="btn btn-secondary btn-sm ml-auto"
+                                                        data-dismiss="modal">Cancel</button>
+                                                <button type="submit" class="btn btn-primary btn-sm ml-3 px-5">Save</button>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </c:forEach>
             </div>
         </div>
@@ -76,84 +168,7 @@
     <!-- Class End -->
 
 
-    <div id="confirmClass" class="modal fade " role="dialog" >
-        <div class="modal-dialog modal-lg" role="content">
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h4 class="modal-title">Confirm Register Class</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <form action="registerClass" method="POST">
-                        <div class="form-row row container">
-                            <div class="row mb-3 col-12">
-                                <div class="col-sm-3 col-12">
-                                    <h6 class="mb-0 pt-2">Parent Name</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name ="parent" class="form-control input_confirm" value="${u.getFullName()}"required>
-                                </div>
-                            </div>
-                            <div class="row mb-3 col-12">
-                                <div class="col-sm-3 col-12">
-                                    <h6 class="mb-0 pt-2">Child Name</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name ="child" class="form-control input_confirm" value="${u.getFullName()}"required>
-                                </div>
-                            </div>
-                            <div class="row mb-3 col-12">
-                                <div class="col-sm-3 col-12">
-                                    <h6 class="mb-0 pt-2">Skill Course</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name ="skillcourse" class="form-control input_confirm" value="${u.getFullName()}"required>
-                                </div>
-                            </div>
-                            <div class="row mb-3 col-12">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0 pt-2">Total Seats</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="number" name ="totalseat" class="form-control input_confirm" value="${seat}"required>
-                                </div>
-                            </div>
-                            <div class="row mb-3 col-12">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0 pt-2">Time Start</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name ="timestart" class="form-control input_confirm" value="8:00"required>
-                                </div>
-                            </div>
-                            <div class="row mb-3 col-12">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0 pt-2">Time End</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="text" name ="timeend" class="form-control input_confirm" value="10:00"required>
-                                </div>
-                            </div>
-                            <div class="row mb-3 col-12">
-                                <div class="col-sm-3">
-                                    <h6 class="mb-0 pt-2">Tution Fee</h6>
-                                </div>
-                                <div class="col-sm-9 text-secondary">
-                                    <input type="number" name ="tutionfee" class="form-control input_confirm" value="${u.getPhoneNumber()}" disabled>
-                                </div>
-                            </div>
-                            <div class="form-row text-left col-12">
-                                <button type="button" class="btn btn-secondary btn-sm ml-auto"
-                                        data-dismiss="modal">Cancel</button>
-                                <button type="submit" class="btn btn-primary btn-sm ml-3 px-5">Save</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
+
 
     <!-- Registration Start -->
     <div class="container-fluid py-5">

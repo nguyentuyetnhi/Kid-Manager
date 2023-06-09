@@ -21,11 +21,23 @@ public class Proposal {
     private LocalDateTime timeEnd;
     private int accept;
     private String status;
+    private int totalVote;
 
     public Proposal() {
     }
 
-    public Proposal(String idProposal, String idUser, String title, String contentProposal, LocalDateTime timeStart, LocalDateTime timeEnd, int accept, String status) {
+//    public Proposal(String idProposal, String idUser, String title, String contentProposal, LocalDateTime timeStart, LocalDateTime timeEnd, int accept, String status) {
+//        this.idProposal = idProposal;
+//        this.idUser = idUser;
+//        this.title = title;
+//        this.contentProposal = contentProposal;
+//        this.timeStart = timeStart;
+//        this.timeEnd = timeEnd;
+//        this.accept = accept;
+//        this.status = status;
+//    }
+
+    public Proposal(String idProposal, String idUser, String title, String contentProposal, LocalDateTime timeStart, LocalDateTime timeEnd, int accept, String status, int totalVote) {
         this.idProposal = idProposal;
         this.idUser = idUser;
         this.title = title;
@@ -34,7 +46,18 @@ public class Proposal {
         this.timeEnd = timeEnd;
         this.accept = accept;
         this.status = status;
+        this.totalVote = totalVote;
     }
+
+    public int getTotalVote() {
+        return totalVote;
+    }
+
+    public void setTotalVote(int totalVote) {
+        this.totalVote = totalVote;
+    }
+    
+    
 
     public String getIdProposal() {
         return idProposal;

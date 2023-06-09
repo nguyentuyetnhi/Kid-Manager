@@ -15,6 +15,8 @@ public class ClassSkill {
      private String idChildCour;
      private String idSkill;
      private String idteacher;
+     private String idchild;
+     private String idClass;
      private LocalDateTime startDate;
      private LocalDateTime endDate;
      private String className;
@@ -22,6 +24,7 @@ public class ClassSkill {
      private LocalDateTime timeStart;
      private LocalDateTime timeEnd;
      private String skillName;
+     private int priceSkillCour;
      private String status;
 
     public ClassSkill() {
@@ -41,8 +44,66 @@ public class ClassSkill {
         this.status = status;
     }
 
-   
+    public ClassSkill(String idChildCour, String idSkill, String idteacher, LocalDateTime startDate, LocalDateTime endDate, String className, int totalSeat, LocalDateTime timeStart, LocalDateTime timeEnd, String skillName, int priceSkillCour, String status) {
+        this.idChildCour = idChildCour;
+        this.idSkill = idSkill;
+        this.idteacher = idteacher;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.className = className;
+        this.totalSeat = totalSeat;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.skillName = skillName;
+        this.priceSkillCour = priceSkillCour;
+        this.status = status;
+    }
 
+    public ClassSkill(String idChildCour, String idteacher, String idchild, String idClass, String className, int totalSeat, LocalDateTime timeStart, LocalDateTime timeEnd, String status) {
+        this.idChildCour = idChildCour;
+        this.idteacher = idteacher;
+        this.idchild = idchild;
+        this.idClass = idClass;
+        this.className = className;
+        this.totalSeat = totalSeat;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.status = status;
+    }
+    
+    
+
+    public ClassSkill(String idChildCour, String idteacher, String idchild, String className, int totalSeat, LocalDateTime timeStart, LocalDateTime timeEnd, String status) {
+        this.idChildCour = idChildCour;
+        this.idteacher = idteacher;
+        this.idchild = idchild;
+        this.className = className;
+        this.totalSeat = totalSeat;
+        this.timeStart = timeStart;
+        this.timeEnd = timeEnd;
+        this.status = status;
+    }
+
+    public ClassSkill(String idChildCour, String idteacher, String idchild, String idClass, String status) {
+        this.idChildCour = idChildCour;
+        this.idteacher = idteacher;
+        this.idchild = idchild;
+        this.idClass = idClass;
+        this.status = status;
+    }
+    
+    
+
+    public String getIdClass() {
+        return idClass;
+    }
+
+    public void setIdClass(String idClass) {
+        this.idClass = idClass;
+    }
+    
+    
+    
     public String getIdSkill() {
         return idSkill;
     }
@@ -65,6 +126,14 @@ public class ClassSkill {
 
     public void setIdteacher(String idteacher) {
         this.idteacher = idteacher;
+    }
+    
+    public String getIdchild() {
+        return idchild;
+    }
+
+    public void setIdchild(String idchild) {
+        this.idchild = idchild;
     }
 
     public LocalDateTime getStartDate() {
@@ -130,16 +199,32 @@ public class ClassSkill {
     public void setSkillName(String skillName) {
         this.skillName = skillName;
     }
+    
+    
+
+    public int getPriceSkillCour() {
+        return priceSkillCour;
+    }
+
+    public void setPriceSkillCour(int priceSkillCour) {
+        this.priceSkillCour = priceSkillCour;
+    }
+
+//    @Override
+//    public String toString() {
+//        return "ClassSkill{" + "idSkill=" + idSkill + 
+//                ", idChildCour=" + idChildCour + ", idteacher=" 
+//                + idteacher + ", startDate=" + startDate + ", endDate=" + 
+//                endDate + ", className=" + className + ", totalSeat=" + totalSeat + ", status=" + status + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", skillName=" + skillName + '}';
+//    }
 
     @Override
     public String toString() {
-        return "ClassSkill{" + "idSkill=" + idSkill + 
-                ", idChildCour=" + idChildCour + ", idteacher=" 
-                + idteacher + ", startDate=" + startDate + ", endDate=" + 
-                endDate + ", className=" + className + ", totalSeat=" + totalSeat + ", status=" + status + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", skillName=" + skillName + '}';
+        return "ClassSkill{" + "idChildCour=" + idChildCour + ", idClass=" + idClass + ", idSkill=" + idSkill + ", idteacher=" + 
+                idteacher +", idchild="+ idchild +", startDate=" + startDate + ", endDate=" + endDate + ", className=" + className
+                + ", totalSeat=" + totalSeat + ", timeStart=" + timeStart + ", timeEnd=" + timeEnd + ", skillName=" + skillName
+                + ", priceSkillCour=" + priceSkillCour + ", status=" + status + '}';
     }
-
-    
     
     public String getStartDate1() {
          DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm");

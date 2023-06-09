@@ -4,7 +4,6 @@
  */
 package model.User;
 
-import model.UsersDB.UsersDB;
 import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.util.logging.Level;
