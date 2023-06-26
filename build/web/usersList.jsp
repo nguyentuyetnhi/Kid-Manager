@@ -8,7 +8,7 @@
 
     <!-- Header Start -->
     <div class="container-fluid bg-primary mb-5">
-        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 350px">
+        <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 70px">
             <h3 class="display-3 font-weight-bold text-white">User Management</h3>
 
         </div>
@@ -27,6 +27,9 @@
                     <li class="nav-item">
                         <a class="nav-item nav-link" href="admin-list?role=${'Parent'}" >Parent</a>
                     </li>
+                    <li class="nav-item">
+                        <a class="nav-item nav-link" href="admin-list?role=${'Block'}" >User is block</a>
+                    </li>
 
                 </ul>
                 <div class="main-box clearfix">
@@ -39,6 +42,7 @@
                                     <th>Dob</th>
                                     <th>Gender</th>
                                     <th>Address</th>
+                                    <th>Role</th>
                                     <th>Phone</th>
                                     <th>Option</th>
                                 </tr>
@@ -47,13 +51,14 @@
 
                                 <%int count = 0;%>
                                 <c:forEach var="o" items="${listA}" >
-                                <a href="profileParent.jsp" style="cursor: pointer;">
+
                                     <tr >
 
-                                            <td><%count++;
-                                                out.print(count);%></td>
+                                        <td><%count++;
+                                                out.print(count);%>
+                                        </td>
                                         <td>
-                                            <!--<img src="./img/${o.getImgAvt()}" alt="">-->
+                                            <img src="./img/${o.getImgAvt()}" alt="">
                                             ${o.getFullName()}
                                         </td>
                                         <td>
@@ -71,32 +76,47 @@
                                             ${o.getAddress()}
                                         </td>
                                         <td>
+                                            ${o.role}
+                                        </td>
+                                        <td>
                                             ${o.getPhoneNumber()}
                                         </td>
+
                                         <td style="width: 20%;">
                                             <a href="ProfileById?idUser=${o.getIdUser()}" class="table-link">
                                                 <span class="fa-stack">
-                                                    <i class="fa fa-square fa-stack-2x"></i>
-                                                    <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                                    <i class="far fa-id-card fa-stack-2x"></i>
                                                 </span>
                                             </a>
-                                            <a href="#" class="table-link">
-                                                <span class="fa-stack">
-                                                    <i class="fa fa-square fa-stack-2x"></i>
-                                                    <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                                </span>
-                                            </a>
-                                            <a href="#" class="table-link danger">
-                                                <span class="fa-stack">
-                                                    <i class="fa fa-square fa-stack-2x"></i>
-                                                    <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                                </span>
-                                            </a>
+                                            <c:if test="${o.role=='Teacher'}">
+                                                <a href="class-list?id=${o.getIdUser()}" class="table-link">
+                                                    <span class="fa-stack">
+                                                        <i class="fas fa-book-open fa-stack-2x"></i>
+                                                    </span>
+                                                </a>
+                                            </c:if>
+
+                                            <c:if test="${o.role !='Block'}">
+                                                <a href="remove?idUser=${o.getIdUser()}&type=${'Block'}" class="table-link danger">
+                                                    <span class="fa-stack">
+                                                        <i class="fas fa-user-lock fa-stack-2x"></i>
+                                                    </span>
+                                                </a>
+                                            </c:if>
+                                            <c:if test="${o.role =='Block'}">
+                                                <a href="remove?idUser=${o.getIdUser()}&type=${'Parent'}" class="table-link danger">
+                                                    <span class="fa-stack">
+                                                        <i class="fas fa-key  fa-stack-2x"></i>
+<!--                                                        <i class="fa fa-square fa-stack-2x"></i>
+                                                        <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>-->
+                                                    </span>
+                                                </a>
+                                            </c:if>
                                         </td>
 
                                     </tr>
-                                </a>
-                            </c:forEach>
+                                    </a>
+                                </c:forEach>
                             </tbody>
 
                         </table>
@@ -104,18 +124,18 @@
                             <ul class="pagination">
                                 <li class="page-item">
                                     <c:if test="${tag > 1}">
-                                        <a href="class-list?page=${tag-1}" class="page-link" aria-label="Previous">
+                                        <a href="admin-list?page=${tag-1}" class="page-link" aria-label="Previous">
                                             <span aria-hidden="true">«</span>
                                         </a>
                                     </c:if>
 
                                 </li>
                                 <c:forEach begin="1" end="${endPage}" var="i">
-                                    <li class="page-item "><a href="class-list?page=${i}" class="page-link ${tag==i? "active" : ""}">${i}</a></li>
+                                    <li class="page-item "><a href="admin-list?page=${i}" class="page-link ${tag==i? "active" : ""}">${i}</a></li>
                                     </c:forEach>
                                     <c:if test="${tag < endPage}">
                                     <li class="page-item">
-                                        <a href="class-list?page=${tag+1}" class="page-link" aria-label="Next">
+                                        <a href="admin-list?page=${tag+1}" class="page-link" aria-label="Next">
                                             <span aria-hidden="true">»</span>
                                         </a>
                                     </li>

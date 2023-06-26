@@ -22,11 +22,14 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
-                                     class="rounded-circle p-1 bg-primary" width="110">
+
+                                <a data-toggle="modal" data-target="#confirmImg">
+                                    <img src="./img/${userRequest.getImgAvt()}" alt="Admin" class="rounded-circle p-1 bg-primary" width="150" height="150">
+                                </a>
+
                                 <div class="mt-3">
                                     <h4>${userRequest.getFullName()}</h4>
-                                    <p class="text-secondary mb-1">ID: @${userRequest.getIdUser()}</p>
+                                    <p class="text-secondary mb-1">ID: @${u.getIdUser()}</p>
                                 </div>
                             </div>
                             <hr class="my-4">
@@ -63,6 +66,28 @@
                                         </svg>Facebook</h6>
                                     <span class="text-secondary">None</span>
                                 </li>
+                                <c:if test="${role == 'Teacher'}">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info">
+                                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                            </path>
+                                            </svg> certificate
+                                        </h6> 
+                                        <span class="text-secondary"><a data-toggle="modal" data-target="#confirmImgCertificate" href="#">certificate</a></span>
+                                    </li>
+                                </c:if>
+                                <c:if test="${role == 'Admin'}">
+                                    <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                        <h6 class="mb-0">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info">
+                                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                            </path>
+                                            </svg> certificate
+                                        </h6> 
+                                        <span class="text-secondary"><a data-toggle="modal" data-target="#confirmImgCertificate" href="#">certificate </a></span>
+                                    </li>
+                                </c:if>
                             </ul>
                         </div>
                     </div>
@@ -103,7 +128,7 @@
                                         <h6 class="mb-0 pt-2">Email</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control input_form" value="${userRequest.getEmail()}" required>
+                                        <input type="text" class="form-control input_form" value="${u.getEmail()}" required>
                                     </div>
                                 </div>
                                 <div class="row mb-3">
@@ -111,7 +136,7 @@
                                         <h6 class="mb-0 pt-2">Phone</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control input_form" value="${userRequest.getPhoneNumber()}" required>
+                                        <input type="text" class="form-control input_form" value="${u.getPhoneNumber()}" required>
                                     </div>
                                 </div>
 
@@ -120,7 +145,7 @@
                                         <h6 class="mb-0 pt-2">Address</h6>
                                     </div>
                                     <div class="col-sm-9 text-secondary">
-                                        <input type="text" class="form-control input_form" value="${userRequest.getAddress()}" required>
+                                        <input type="text" class="form-control input_form" value="${u.getAddress()}" required>
                                     </div>
                                 </div>
                                 <div class="row">
@@ -157,7 +182,7 @@
                                                 <h6 class="mb-0 pt-2">Full Name</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="fullName" class="form-control input_confirm" value="${userRequest.getFullName()}"required>
+                                                <input type="text" name ="fullName" class="form-control input_confirm" value="${u.getFullName()}"required>
                                             </div>
                                         </div>
                                         <div class="row mb-3 col-12">
@@ -165,7 +190,7 @@
                                                 <h6 class="mb-0 pt-2">Birthday</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input name ="dob" class="form-control input_confirm"  type="date" value="${userRequest.getDob()}" required>
+                                                <input name ="dob" class="form-control input_confirm"  type="date" value="${u.getDob()}" required>
                                             </div>
                                         </div>
                                         <div class="row mb-3 col-12">
@@ -184,7 +209,7 @@
                                                 <h6 class="mb-0 pt-2">Email</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="email" class="form-control input_confirm" value="${userRequest.getEmail()}"required>
+                                                <input type="text" name ="email" class="form-control input_confirm" value="${u.getEmail()}"required>
                                             </div>
                                         </div>
                                         <div class="row mb-3 col-12">
@@ -192,7 +217,7 @@
                                                 <h6 class="mb-0 pt-2">Phone</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="phoneNumber" class="form-control input_confirm" value="${userRequest.getPhoneNumber()}"required>
+                                                <input type="text" name ="phoneNumber" class="form-control input_confirm" value="${u.getPhoneNumber()}"required>
                                             </div>
                                         </div>
 
@@ -201,8 +226,8 @@
                                                 <h6 class="mb-0 pt-2">Address</h6>
                                             </div>
                                             <div class="col-sm-9 text-secondary">
-                                                <input type="text" name ="address" class="form-control input_confirm" value="${userRequest.getAddress()}"required>
-                                                <input type="hidden" name ="idUser" class="form-control input_confirm" value="${userRequest.getIdUser()}">
+                                                <input type="text" name ="address" class="form-control input_confirm" value="${u.getAddress()}"required>
+                                                <input type="hidden" name ="idUser" class="form-control input_confirm" value="${u.getIdUser()}">
                                             </div>
                                         </div>
                                         <div class="form-row text-left col-12">
@@ -216,25 +241,62 @@
                         </div>
                     </div>
                 </div>
-                <!--End  confirm edit--> 
+                <div id="confirmImg" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg" role="content">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Change avatar</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="fileuploadservlet" enctype="multipart/form-data">
+                                    <input type="hidden" name ="idUser" class="form-control input_confirm" value="${u.getIdUser()}">
+                                    <input type="file" name="file" value="" placeholder="edit"/>
+                                    <input type="submit" value="Upload" />
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="confirmImgCertificate" class="modal fade" role="dialog">
+                    <div class="modal-dialog modal-lg" role="content">
+                        <!-- Modal content-->
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h4 class="modal-title">Change avatar</h4>
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            </div>
+                            <div class="modal-body">
+                                <form method="post" action="FileUploadCertificate" enctype="multipart/form-data">
+                                    <img src="./img/${userRequest.getCerticate().trim()}"   width="300" height="300"><br>
+                                    <input type="hidden" name ="idUser" class="form-control input_confirm" value="${u.getIdUser()}">
+                                        <input type="file" name="file" value="" placeholder="edit"/>
+                                        <input type="submit" value="Upload" />
+
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <!--End  confirm edit--> 
+                </div>
             </div>
         </div>
-    </div>
-    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
-    <script type="text/javascript">
+        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script type="text/javascript">
 
-    </script>
-    <script>
-        var inputForms = document.querySelectorAll('.input_form');
-        var inputConfirms = document.querySelectorAll('.input_confirm');
+        </script>
+        <script>
+            var inputForms = document.querySelectorAll('.input_form');
+            var inputConfirms = document.querySelectorAll('.input_confirm');
 
-        for (let i = 0; i < inputForms.length; i++) {
-            inputForms[i].addEventListener('change', function () {
-                console.log(i);
-                inputConfirms[i].value = inputForms[i].value;
-            });
-        }
-    </script>
+            for (let i = 0; i < inputForms.length; i++) {
+                inputForms[i].addEventListener('change', function () {
+                    console.log(i);
+                    inputConfirms[i].value = inputForms[i].value;
+                });
+            }
+        </script>
 </body>
 </html>

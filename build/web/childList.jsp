@@ -10,7 +10,7 @@
     <div class="container-fluid bg-primary mb-5">
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
             <h3 class="display-3 font-weight-bold text-white">Class Number</h3>
-            
+
         </div>
     </div>
     <!-- Header End -->
@@ -22,7 +22,35 @@
             <div class="col-lg-12">
                 <div class="main-box clearfix">
                     <div class="table-responsive">
+                        <c:set value="${user2}" var="u2"/>
                         <table class="table user-list">
+                            <thead>
+                                <tr>
+                                    <th>Index</th>
+                                    <th><span>Name</span></th>
+                                    <th><span>DOB</span></th>
+                                    <th><span>Email</span></th>
+                                    <th ><span>gender</span></th>
+                                    <th><span>Address</span></th>
+                                    <th><span>Phone Number</span></th>
+                                </tr>
+                            </thead>
+                            <td>##</td>
+                            <td ><img src="./img/${u2.imgAvt}" >${u2.fullName}</td>
+                            <td>${u2.getDateOB()}</td>
+                            <td>${u2.email}</td>
+                            <td>  <c:if test="${u2.gender == 'M'}">
+                                    Male
+                                </c:if>
+                                <c:if test="${u2.gender == 'F'}">
+                                    Female
+                                </c:if></td>
+                            <td>${u2.address}</td>
+                            <td>${u2.phoneNumber}</td>
+                        </table>
+
+                        <table class="table user-list">
+
                             <thead>
                                 <tr>
                                     <th>Index</th>
@@ -36,56 +64,89 @@
                                 </tr>
                             </thead>
                             <tbody>
-                            <%int count=0;%>
+                                <%int count = 0;%>
+
                                 <c:forEach var="o" items="${listA}" >
                                     <tr>
-                                    <td><%count++;
-                                    out.print(count);%></td>
-                                    <td>
-                                        <img src="./img/${o.imgAvt}" alt="">
-                                        <p>${o.childName}</p>
-                                    </td>
-                                    <td>
-                                       <p>${o.getDateOB()}</p>
-                                    </td>
-                                    <td>
-                                       ${o.getGender()}
-                                    </td>
-                                    
-                                    <td >
-                                        ${o.getWeight()}
-                                    </td>
-                                    <td>
-                                         ${o.getHeight()}
-                                    </td>
-                                     <td>
-                                         ${o.getHealth()}
-                                    </td>
-                                    <td style="width: 20%;">
-                                        <a href="#" class="table-link">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="table-link">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-pencil fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                        <a href="#" class="table-link danger">
-                                            <span class="fa-stack">
-                                                <i class="fa fa-square fa-stack-2x"></i>
-                                                <i class="fa fa-trash-o fa-stack-1x fa-inverse"></i>
-                                            </span>
-                                        </a>
-                                    </td>
-                                </tr>
+                                        <td><%count++;
+                                            out.print(count);%></td>
+                                        <td>
+                                            <img src="./img/${o.imgAvt}" alt="">
+                                            <p>${o.childName}</p>
+                                        </td>
+                                        <td>
+                                            <p>${o.getDateOB()}</p>
+                                        </td>
+                                        <td>
+                                            <c:if test="${o.getGender() == 'M'}">
+                                                Male
+                                            </c:if>
+                                            <c:if test="${o.getGender() == 'F'}">
+                                                Female
+                                            </c:if>
+                                        </td>
+
+                                        <td >
+                                            ${o.getWeight()}
+                                        </td>
+                                        <td>
+                                            ${o.getHeight()}
+                                        </td>
+                                        <td>
+                                            ${o.getHealth()}
+                                        </td>
+                                        <td style="width: 20%;">
+                                            <a href="ProfileChildById?idChild=${o.idChild}" class="table-link">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
                                 </c:forEach>
-                                
-                                
-                               
+
+                                <c:forEach var="o" items="${listB}" >
+                                    <tr>
+                                        <td><%count++;
+                                            out.print(count);%></td>
+                                        <td>
+                                            <img src="./img/${o.imgAvt}" alt="">
+                                            <p>${o.childName}</p>
+                                        </td>
+                                        <td>
+                                            <p>${o.getDateOB()}</p>
+                                        </td>
+                                        <td>
+                                            <c:if test="${o.getGender() == 'M'}">
+                                                Male
+                                            </c:if>
+                                            <c:if test="${o.getGender() == 'F'}">
+                                                Female
+                                            </c:if>
+                                        </td>
+
+                                        <td >
+                                            ${o.getWeight()}
+                                        </td>
+                                        <td>
+                                            ${o.getHeight()}
+                                        </td>
+                                        <td>
+                                            ${o.getHealth()}
+                                        </td>
+                                        <td style="width: 20%;">
+                                            <a href="ProfileChildById?idChild=${o.idChild}" class="table-link">
+                                                <span class="fa-stack">
+                                                    <i class="fa fa-square fa-stack-2x"></i>
+                                                    <i class="fa fa-search-plus fa-stack-1x fa-inverse"></i>
+                                                </span>
+                                            </a>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+
+
                             </tbody>
                         </table>
                     </div>

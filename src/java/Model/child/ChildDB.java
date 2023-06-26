@@ -11,8 +11,9 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import model.DBUnitil.DatabaseInfo;
-import model.User.Users;
 
 /**
  *
@@ -67,7 +68,7 @@ public class ChildDB {
         return result;
     }
 
-    public static List<Child> getChildbyIdParent(String idParent) throws SQLException {
+    public static List<Child> getChildbyIdParent(String idParent) {
 
         Connection con = null;
 
@@ -79,7 +80,7 @@ public class ChildDB {
             con = DatabaseInfo.getConnect();
             if (con != null) {
 
-                String sql = "SELECT idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt "
+                String sql = "SELECT idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt,imgDob "
                         + " FROM Child "
                         + " where idUser = ?";
 
@@ -99,77 +100,43 @@ public class ChildDB {
                     int height = rs.getInt(8);
                     String health = rs.getString(9);
                     String imgAvt = rs.getString(10);
-
-                    listChild.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt));
+                    String imgDob = rs.getString(11);
+                    listChild.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt, imgDob));
                 }
             }
         } catch (ClassNotFoundException | SQLException e) {
             e.printStackTrace();
         } finally {
             if (rs != null) {
-                rs.close();
+                try {
+                    rs.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ChildDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             if (pstm != null) {
-                pstm.close();
+                try {
+                    pstm.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ChildDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
             if (con != null) {
-                con.close();
+                try {
+                    con.close();
+                } catch (SQLException ex) {
+                    Logger.getLogger(ChildDB.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
         return listChild;
-    }
-
-    public ArrayList<Child> getAllUser(String idTeacher) {
-        ArrayList<Child> list = new ArrayList<>();
-        try ( Connection con = DatabaseInfo.getConnect()) {
-            PreparedStatement stmt = con.prepareStatement("SELECT [SkillClass].[idClass]\n"
-                    + "      ,[SkillClass].[idChild]\n"
-                    + "      ,[SkillClass].[idChildCour]\n"
-                    + "      ,[SkillClass].[idTeacher]\n"
-                    + "      ,[childName]\n"
-                    + "      ,[idUser]\n"
-                    + "      ,[dob]\n"
-                    + "      ,[gender]\n"
-                    + "      ,[progress]\n"
-                    + "      ,[weight]\n"
-                    + "      ,[height]\n"
-                    + "      ,[health]\n"
-                    + "      ,[imgAvt]\n"
-                    + "  FROM [SkillClass]\n"
-                    + "  INNER JOIN Child\n"
-                    + "  ON Child.idChild  = SkillClass.idChild\n"
-                    + "   INNER JOIN ChildCours\n"
-                    + "  ON [ChildCours].idChildCour = [SkillClass].[idChildCour] \n"
-                    + "  where [ChildCours].idChildCour ='" + idTeacher + "'\n"
-                    + "  order by idChild");
-            ResultSet rs = stmt.executeQuery();
-            while (rs.next()) {
-                String idChild = rs.getString(2);
-                Date dob = rs.getDate(7);
-                String childName = rs.getString(5);
-                String idUser = rs.getString(6);
-                String gender = rs.getString(8);
-                String progress = rs.getString(9);
-                double weight = rs.getDouble(10);
-                int height = rs.getInt(11);
-                String health = rs.getString(12);
-                String imgAvt = rs.getString(13);
-
-                list.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt));
-            }
-            con.close();
-            return list;
-        } catch (Exception ex) {
-            throw new RuntimeException("something wrong!");
-        }
     }
 
     public static Child getChildbyIdChild(String idChild) {
         Child child = null;
 
         try ( Connection con = DatabaseInfo.getConnect()) {
-            PreparedStatement stmt = con.prepareStatement("SELECT "
-                    + "      [idChild]\n"
+            PreparedStatement stmt = con.prepareStatement("SELECT [idChild]\n"
                     + "      ,[childName]\n"
                     + "      ,[idUser]\n"
                     + "      ,[dob]\n"
@@ -179,14 +146,14 @@ public class ChildDB {
                     + "      ,[height]\n"
                     + "      ,[health]\n"
                     + "      ,[imgAvt]\n"
-                    + "  FROM [A01_RT03].[dbo].[Child]\n"
+                    + "      ,[imgDob]\n"
+                    + "  FROM [A01_RT03].[dbo].[Child]"
                     + "  Where idChild = ? ");
 
             stmt.setString(1, idChild);
             ResultSet rs = stmt.executeQuery();
-            if(rs.next()) {
-//                String idChild = rs.getString(1);
-
+            if (rs.next()) {
+                String idChild1 = rs.getString(1);
                 String childName = rs.getString(2);
                 String idUser = rs.getString(3);
                 Date dob = rs.getDate(4);
@@ -196,8 +163,8 @@ public class ChildDB {
                 int height = rs.getInt(8);
                 String health = rs.getString(9);
                 String imgAvt = rs.getString(10);
-
-                child = new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt);
+                String imgDob = rs.getString(11);
+                child = new Child(idChild1, childName, idUser, dob, gender, progress, weight, height, health, imgAvt, imgDob);
 
             }
             con.close();
@@ -206,5 +173,283 @@ public class ChildDB {
             throw new RuntimeException("something wrong!");
         }
         return child;
+    }
+
+    public static boolean updateProfileChild(Child child) {
+        boolean rowUpdated = false;
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("UPDATE [dbo].[Child] "
+                    + "SET  "
+                    + "  [childName] = ?  ,[dob] = ?  "
+                    + " ,[gender] = ? ,[progress] = ? ,[weight] = ? ,[height] = ? "
+                    + " ,[health] = ? ,[imgAvt] = ? ,[imgDob] = ?,[idUser] = ? "
+                    + " where [idChild]=?");
+
+            stmt.setString(1, child.getChildName());
+            stmt.setString(2, child.getDob());
+            stmt.setString(3, child.getGender());
+            stmt.setString(4, child.getProgress());
+            stmt.setDouble(5, child.getWeight());
+            stmt.setInt(6, child.getHeight());
+            stmt.setString(7, child.getHealth());
+            stmt.setString(8, child.getImgAvt());
+            stmt.setString(9, child.getImgDob());
+            stmt.setString(10, child.getIdUser());
+            stmt.setString(11, child.getIdChild());
+
+            rowUpdated = stmt.executeUpdate() > 0;
+
+            con.close();
+
+        } catch (Exception e) {
+
+            e.printStackTrace();
+
+        }
+        return rowUpdated;
+
+    }
+
+    public static void updateImageChild(String idChild, String img) {
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("UPDATE [dbo].[Child] "
+                    + "SET  [imgAvt] = ? where [idChild]=?");
+
+            stmt.setString(1, img);
+            stmt.setString(2, idChild);
+            int rs = stmt.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+public static void updateImageDobChild(String idChild, String imgDob) {
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("UPDATE [dbo].[Child] "
+                    + "SET  [imgDob] = ? where [idChild]=?");
+
+            stmt.setString(1, imgDob);
+            stmt.setString(2, idChild);
+            int rs = stmt.executeUpdate();
+            con.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+    public ArrayList<Child> getAllChildByIdClass(String id, String status) {
+        ArrayList<Child> list = new ArrayList<>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT  [ClassList].[idClass]\n"
+                    + "      ,Child.idChild\n"
+                    + "      ,Child.[childName]\n"
+                    + "      ,Child.[idUser]\n"
+                    + "      ,Child.[dob]\n"
+                    + "      ,Child.[gender]\n"
+                    + "      ,Child.[progress]\n"
+                    + "      ,Child.[weight]\n"
+                    + "      ,Child.[height]\n"
+                    + "      ,Child.[health]\n"
+                    + "      ,Child.[imgAvt]\n"
+                    + "      ,Child.[imgDob]\n"
+                    + "    ,Class.[status]\n"
+                    + "  FROM [A01_RT03].[dbo].[Class]\n"
+                    + "  INNER JOIN Child\n"
+                    + "  ON Child.idChild  = [Class].idChild\n"
+                    + "   INNER JOIN [ClassList]\n"
+                    + "  ON [ClassList].[idClass]  = [Class].idClass\n"
+                    + "  where [ClassList].[idClass] ='" + id + "' AND Class.[status] ='" + status + "' \n"
+                    + "  order by childName");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String idChild = rs.getString(2);
+                String childName = rs.getString(3);
+                String idUser = rs.getString(4);
+                Date dob = rs.getDate(5);
+                String gender = rs.getString(6);
+                String progress = rs.getString(7);
+                double weight = rs.getDouble(8);
+                int height = rs.getInt(9);
+                String health = rs.getString(10);
+                String imgAvt = rs.getString(11);
+                String imgDob = rs.getString(12);
+                list.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt, imgDob));
+            }
+            con.close();
+            return list;
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
+    }
+
+    public ArrayList<Child> getAllChildByStatus(String status) {
+        ArrayList<Child> list = new ArrayList<>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT  [ClassList].[idClass]\n"
+                    + "      ,Child.idChild\n"
+                    + "      ,Child.[childName]\n"
+                    + "      ,Child.[idUser]\n"
+                    + "      ,Child.[dob]\n"
+                    + "      ,Child.[gender]\n"
+                    + "      ,Child.[progress]\n"
+                    + "      ,Child.[weight]\n"
+                    + "      ,Child.[height]\n"
+                    + "      ,Child.[health]\n"
+                    + "      ,Child.[imgAvt]\n"
+                    + "      ,Child.[imgDob]\n"
+                    + "    ,Class.[status]\n"
+                    + "  FROM [A01_RT03].[dbo].[Class]\n"
+                    + "  INNER JOIN Child\n"
+                    + "  ON Child.idChild  = [Class].idChild\n"
+                    + "   INNER JOIN [ClassList]\n"
+                    + "  ON [ClassList].[idClass]  = [Class].idClass\n"
+                    + "  where Class.[status] ='" + status + "' \n"
+                    + "  order by childName");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String idChild = rs.getString(2);
+                String childName = rs.getString(3);
+                String idUser = rs.getString(4);
+                Date dob = rs.getDate(5);
+                String gender = rs.getString(6);
+                String progress = rs.getString(7);
+                double weight = rs.getDouble(8);
+                int height = rs.getInt(9);
+                String health = rs.getString(10);
+                String imgAvt = rs.getString(11);
+                String imgDob = rs.getString(12);
+                list.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt, imgDob));
+            }
+            con.close();
+            return list;
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
+    }
+
+    public ArrayList<Child> getAllChildByStatus2(String status) {
+        ArrayList<Child> list = new ArrayList<>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT  [SkillList].[idSkill]\n"
+                    + "       ,Child.idChild \n"
+                    + "	   ,Child.[childName]   \n"
+                    + "       ,Child.[idUser] \n"
+                    + "       ,Child.[dob]\n"
+                    + "	   ,Child.[gender]\n"
+                    + "	   ,Child.[progress] \n"
+                    + "	   ,Child.[weight]\n"
+                    + "	   ,Child.[height]\n"
+                    + "	   ,Child.[health]\n"
+                    + "	   ,Child.[imgAvt]\n"
+                    + "      ,Child.[imgDob]\n"
+                    + "      ,[SkillList].[status]\n"
+                    + "FROM [A01_RT03].[dbo].[Skill]\n"
+                    + "INNER JOIN Child \n"
+                    + "ON Child.idChild  = [Skill].idChild   \n"
+                    + "INNER JOIN [SkillList] \n"
+                    + "ON [SkillList].[idSkill]  = [Skill].idSkill \n"
+                    + "where [SkillList].[status] ='" + status + "'\n"
+                    + "order by childName");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String idChild = rs.getString(2);
+                String childName = rs.getString(3);
+                String idUser = rs.getString(4);
+                Date dob = rs.getDate(5);
+                String gender = rs.getString(6);
+                String progress = rs.getString(7);
+                double weight = rs.getDouble(8);
+                int height = rs.getInt(9);
+                String health = rs.getString(10);
+                String imgAvt = rs.getString(11);
+                String imgDob = rs.getString(12);
+                list.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt, imgDob));
+            }
+            con.close();
+            return list;
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
+    }
+
+    public ArrayList<Child> getAllChildByIdSkill(String id, String status) {
+        ArrayList<Child> list = new ArrayList<>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT  [SkillList].[idSkill]\n"
+                    + "       ,Child.idChild \n"
+                    + "	   ,Child.[childName]   \n"
+                    + "       ,Child.[idUser] \n"
+                    + "       ,Child.[dob]\n"
+                    + "	   ,Child.[gender]\n"
+                    + "	   ,Child.[progress] \n"
+                    + "	   ,Child.[weight]\n"
+                    + "	   ,Child.[height]\n"
+                    + "	   ,Child.[health]\n"
+                    + "	   ,Child.[imgAvt]\n"
+                    + "      ,Child.[imgDob]\n"
+                    + "    ,Skill.[status]\n"
+                    + "FROM [A01_RT03].[dbo].[Skill]\n"
+                    + "INNER JOIN Child \n"
+                    + "ON Child.idChild  = [Skill].idChild   \n"
+                    + "INNER JOIN [SkillList] \n"
+                    + "ON [SkillList].[idSkill]  = [Skill].idSkill \n"
+                    + "  where [SkillList].[idSkill] ='" + id + "' AND Skill.[status] ='" + status + "' \n"
+                    + "order by childName");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String idChild = rs.getString(2);
+                String childName = rs.getString(3);
+                String idUser = rs.getString(4);
+                Date dob = rs.getDate(5);
+                String gender = rs.getString(6);
+                String progress = rs.getString(7);
+                double weight = rs.getDouble(8);
+                int height = rs.getInt(9);
+                String health = rs.getString(10);
+                String imgAvt = rs.getString(11);
+                String imgDob = rs.getString(12);
+                list.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt, imgDob));
+            }
+            con.close();
+            return list;
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
+    }
+
+    public ArrayList<Child> getAllChild() {
+        ArrayList<Child> list = new ArrayList<>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT [idChild]\n"
+                    + "      ,[childName]\n"
+                    + "      ,[idUser]\n"
+                    + "      ,[dob]\n"
+                    + "      ,[gender]\n"
+                    + "      ,[progress]\n"
+                    + "      ,[weight]\n"
+                    + "      ,[height]\n"
+                    + "      ,[health]\n"
+                    + "      ,[imgAvt]\n"
+                    + "      ,[imgDob]\n"
+                    + "  FROM [A01_RT03].[dbo].[Child]");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String idChild = rs.getString(1);
+                String childName = rs.getString(2);
+                String idUser = rs.getString(3);
+                Date dob = rs.getDate(4);
+                String gender = rs.getString(5);
+                String progress = rs.getString(6);
+                double weight = rs.getDouble(7);
+                int height = rs.getInt(8);
+                String health = rs.getString(9);
+                String imgAvt = rs.getString(10);
+                String imgDob = rs.getString(11);
+                list.add(new Child(idChild, childName, idUser, dob, gender, progress, weight, height, health, imgAvt, imgDob));
+            }
+            con.close();
+            return list;
+        } catch (Exception ex) {
+            throw new RuntimeException("something wrong!");
+        }
     }
 }

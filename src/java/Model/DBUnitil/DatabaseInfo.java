@@ -34,7 +34,7 @@ public interface DatabaseInfo {
         Connection conn = null;
         Class.forName("com.microsoft.sqlserver.jdbc.SQLServerDriver");
         String url = "jdbc:sqlserver://localhost:1433;databaseName=A01_RT03";
-        conn = DriverManager.getConnection(url, "sa", "123456");
+        conn = DriverManager.getConnection(url, "sa", "12345");
         return conn;
     }
     

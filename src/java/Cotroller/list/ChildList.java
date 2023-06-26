@@ -10,8 +10,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import model.Class.ClassListDB;
+import model.User.Users;
+import model.User.UsersDB;
 import model.child.Child;
 import model.child.ChildDB;
+import model.skillList.SkillListDB;
 
 /**
  *
@@ -32,11 +36,16 @@ public class ChildList extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         String id = request.getParameter("id");
-        String indexPage = request.getParameter("page");
-         ChildDB c = new ChildDB();
-        List<Child> childList = c.getAllUser(id);
-        request.setAttribute("listA",  childList);
-         request.getRequestDispatcher("childList.jsp").forward(request, response);
+        ChildDB c = new ChildDB();
+        ClassListDB l = new ClassListDB();
+        SkillListDB s = new SkillListDB();
+        model.Class.ClassList list = l.getAllClassById(id);
+          Users  user = UsersDB.getUserById(list.getIdTeacher());
+            List<Child> childList = c.getAllChildByIdClass(id, "Accept    ");
+            request.setAttribute("listA", childList);
+            request.setAttribute("user2", user);
+            request.getRequestDispatcher("childList.jsp").forward(request, response);
+       
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

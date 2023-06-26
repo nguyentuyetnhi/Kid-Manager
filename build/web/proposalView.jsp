@@ -27,7 +27,7 @@
                 <div class="card">
                     <div class="card-body">
                         <div class="d-flex flex-column align-items-center text-center">
-                            <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle" width="150">
+                          <img src="./img/${u.getImgAvt()}"  alt="Admin" class="rounded-circle" width="150">
                             <div class="mt-3">
                                 <!--<h4>${u.getFullName()}</h4>-->
                                 <p class="text-secondary mb-1">ID: @${proIdProposal.idUser}</p>
@@ -99,7 +99,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                                 
+
                                 </c:when>
                                 <c:when test="${proIdProposal.getTotalVote() == 0}">
                                     <div class="col-sm-9 card-body mt-3">
@@ -147,8 +147,8 @@
                                             <span class=" ${text-color} ">${msq}</span>
                                         </span>
                                     </div>
-                                </form>
                             </div>
+                        </form>
                     </div>
                 </div>
             </div>

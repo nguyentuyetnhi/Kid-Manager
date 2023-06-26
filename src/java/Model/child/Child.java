@@ -26,11 +26,12 @@ public class Child {
     private int height;
     private String health;
     private String imgAvt;
+    private String imgDob;
 
     public Child() {
     }
 
-    public Child(String idChild, String childName, String idUser, Date dob, String gender, String progress, double weight, int height, String health, String imgAvt) {
+    public Child(String idChild, String childName, String idUser, Date dob, String gender, String progress, double weight, int height, String health, String imgAvt, String imgDob) {
         this.idChild = idChild;
         this.childName = childName;
         this.idUser = idUser;
@@ -41,9 +42,10 @@ public class Child {
         this.height = height;
         this.health = health;
         this.imgAvt = imgAvt;
+        this.imgDob = imgDob;
     }
 
-    public Child(String idChild, String childName, String idUser, String dob, String gender, String progress, double weight, int height, String health, String imgAvt) {
+    public Child(String idChild, String childName, String idUser, String dob, String gender, String progress, double weight, int height, String health, String imgAvt, String imgDob) {
         this.idChild = idChild;
         this.childName = childName;
         this.idUser = idUser;
@@ -54,6 +56,15 @@ public class Child {
         this.height = height;
         this.health = health;
         this.imgAvt = imgAvt;
+        this.imgDob = imgDob;
+    }
+
+    public String getImgDob() {
+        return imgDob;
+    }
+
+    public void setImgDob(String imgDob) {
+        this.imgDob = imgDob;
     }
 
     public String getIdChild() {
@@ -131,8 +142,6 @@ public class Child {
         this.height = height;
     }
 
-    
-
     public String getHealth() {
         return health;
     }
@@ -149,4 +158,16 @@ public class Child {
         this.imgAvt = imgAvt;
     }
 
+    public String getAge(Date dob1) {
+        SimpleDateFormat ft = new SimpleDateFormat("yyyy");
+        long millis = System.currentTimeMillis();
+        java.sql.Date date = new java.sql.Date(millis);
+        int t = Integer.valueOf(ft.format(date)) - Integer.valueOf(ft.format(dob1));
+        return String.valueOf(t);
+    }
+
+    public static void main(String[] args) {
+        Child i = new Child();
+        System.out.println("-->" + i.getAge(Date.valueOf("2018-07-09")));
+    }
 }

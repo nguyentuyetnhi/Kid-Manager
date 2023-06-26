@@ -5,20 +5,12 @@
 package cotroller.list;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.sql.Date;
-import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
-import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User.ClassSkill;
-import model.User.UsersDB;
-import model.child.ClassDB;
-import model.skillCourse.SkillCourse;
-import model.skillCourse.SkillCourseDB;
+import model.Class.ClassListDB;
+import validation.Validator;
 
 /**
  *
@@ -35,27 +27,25 @@ public class registerClass extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+    public static final String SUCCESS = "ListClass?id=";
+    public static final String ERORR = "ListClass?id=";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        String idChildCour = request.getParameter("idChildCour").trim();
         String idChild = request.getParameter("idChild").trim();
-        String idTeacher = request.getParameter("idTeacher").trim();
-
-        ClassSkill sc = new ClassSkill();
-        sc.setIdClass(UsersDB.createID());
-        sc.setIdChildCour(idChildCour);
-        sc.setIdchild(idChild);
-        sc.setIdteacher(idTeacher);
-        sc.setStatus("regist");
-        
-        if (ClassDB.registerClass(sc)) {
-            request.setAttribute("msq", "Successful Registration");
-            request.getRequestDispatcher(response.encodeURL("ListClass")).forward(request, response);
-        } else {
-            request.setAttribute("msq", "Fail Registration");
-            request.getRequestDispatcher(response.encodeURL("ListClass")).forward(request, response);
+        String idClass = request.getParameter("idClass").trim();
+        String idUser  = request.getParameter("idUser");
+        ClassListDB classList = new ClassListDB();
+      
+        if(!idChild.isEmpty() &&!idClass.isEmpty() ){
+              classList.regisClas(Validator.createID(), idChild, idClass, "Regist    ");
+                request.setAttribute("msq", "registration success!");
+                response.sendRedirect(SUCCESS+idUser);
+        }else{
+             request.setAttribute("msq", "registration fail!");
+                  response.sendRedirect(ERORR+idUser);
         }
+
 
     }
 

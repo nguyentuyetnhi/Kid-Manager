@@ -4,6 +4,7 @@
  */
 package validation;
 
+import java.util.Random;
 import java.util.Scanner;
 
 /**
@@ -31,5 +32,42 @@ public class Validator {
         }
         return String.valueOf(charArray);
     }
-    
+    private static char[] chars = {'1', '2', '3', '4', '5', '6', '7', '8', '9', '0'};
+    public static String createID() {
+        Random generator = new Random();
+        String AlphaNumericString = "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(5);
+        for (int i = 0; i < 3; i++) {
+            int index = (int) (AlphaNumericString.length() * Math.random());
+            sb.append(AlphaNumericString.charAt(index));
+        }
+        String randomStrValue = "";
+        StringBuilder sb1 = new StringBuilder();
+        int index = 0;
+        for (int i = 0; i < 7; i++) {
+            index = (int) (Math.random() * (chars.length - 1));
+            sb1.append(chars[index]);
+        }
+        return sb.toString() + sb1.toString();
+    }
+    public static String createNameImg() {
+        Random generator = new Random();
+        String AlphaNumericString = "abcdefghijklmnopqrstuvxyz";
+        StringBuilder sb = new StringBuilder(5);
+        for (int i = 0; i < 5; i++) {
+            int index = (int) (AlphaNumericString.length() * Math.random());
+            sb.append(AlphaNumericString.charAt(index));
+        }
+        String randomStrValue = "";
+        StringBuilder sb1 = new StringBuilder();
+        int index = 0;
+        for (int i = 0; i < 10; i++) {
+            index = (int) (Math.random() * (chars.length - 1));
+            sb1.append(chars[index]);
+        }
+        return sb.toString() + sb1.toString();
+    }
+    public static String getExtension(String path) {
+        return path.substring(path.lastIndexOf(".") + 1, path.length());
+    }
 }

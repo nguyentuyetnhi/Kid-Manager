@@ -5,15 +5,13 @@
 package cotroller.list;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.util.List;
+import java.util.ArrayList;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import model.User.ClassSkill;
+import model.Class.ClassListDB;
 import model.User.Users;
-import model.child.ClassDB;
 
 /**
  *
@@ -41,21 +39,22 @@ public class ClassList extends HttpServlet {
             if( users.getRole().equals("Parent")){
                 request.getRequestDispatcher("index.jsp").forward(request, response);
             }else{
-                 String indexPage = request.getParameter("page");
+                 String indexPage = request.getParameter("pageA");
         if(indexPage == null){
             indexPage = "1";
         }
         int index = Integer.parseInt(indexPage);
-         ClassDB c = new ClassDB();
+         ClassListDB c = new ClassListDB();
         int count = c.getTotal();
-        int endPage = count/5;
-        if(count % 5 !=0 ){
+        int endPage = count/2;
+        if(count % 2 !=0 ){
             endPage++;
         }
-        List<ClassSkill> user = c.getAllClassByIdTeacher(id);
+        ArrayList<model.Class.ClassList> user = c.getAllClassByIdTeacher(id,index);
         request.setAttribute("listA",  user);
-        request.setAttribute("endPage", endPage);
-         request.setAttribute("tag", index);
+        request.setAttribute("id",  id);
+        request.setAttribute("endPageA", endPage);
+         request.setAttribute("tagA", index);
          request.getRequestDispatcher("team.jsp").forward(request, response);
             }
            

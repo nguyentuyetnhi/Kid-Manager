@@ -1,8 +1,6 @@
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ include file="include/header.jsp" %>
-
-
 <body>
 
     <!-- Header Start -->
@@ -10,7 +8,7 @@
         <div class="d-flex flex-column align-items-center justify-content-center" style="min-height: 400px">
             <h3 class="display-3 font-weight-bold text-white">Our Classes</h3>
             <div class="d-inline-flex text-white">
-                <p class="m-0"><a class="text-white" href="">Home</a></p>
+                <p class="m-0"><a class="text-white" href="index.jsp">Home</a></p>
                 <p class="m-0 px-2">/</p>
                 <p class="m-0">Our Classes</p>
             </div>
@@ -29,55 +27,43 @@
             <div class="row">
                 <c:forEach var="o" items="${listcl}" >
                     <div class="col-lg-4 mb-5">
-                        <form method="POST" action="registerClass">
-
-                            <div class="card border-0 bg-light shadow-sm pb-2">
-                                <img class="card-img-top mb-2" src="img/class-1.jpg" alt="">
-                                <div class="card-body text-center">
-                                    <h4 class="card-title">Class ${o.getClassName()}</h4>
-                                    <input type="hidden" name ="className" class="form-control input_confirm" value="${o.getClassName()}"required>
-                                    <p class="card-text">Justo ea diam stet diam ipsum no sit, ipsum vero et et diam ipsum duo et no et, ipsum ipsum erat duo amet clita duo</p>
-                                </div>
-                                <div class="card-footer bg-transparent py-4 px-5">
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Skill Course</strong></div>
-                                        <div class="col-6 py-1">${o.getSkillName()}</div>
-                                        <input type="hidden" name ="skillName" class="form-control input_confirm" value="${o.getSkillName()}"required>
-                                    </div>
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right" for="seat"><strong>Total Seats</strong></div>
-                                        <div class="col-6 py-1" name="seat">${o.getTotalSeat()}</div>
-                                        <input type="hidden" name ="totalSeat" class="form-control input_confirm" value="${o.getTotalSeat()}"required>
-                                    </div>
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Time Start</strong></div>
-                                        <div class="col-6 py-1">${o.getTimeStart1()}</div>
-                                        <input type="hidden" name ="timeStart" class="form-control input_confirm" value="${o.getTimeStart1()}"required>
-                                    </div>
-                                    <div class="row border-bottom">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Time End</strong></div>
-                                        <div class="col-6 py-1">${o.getTimeEnd1()}</div>
-                                        <input type="hidden" name ="timeEnd" class="form-control input_confirm" value="${o.getTimeEnd1()}"required>
-                                    </div>
-                                    <div class="row">
-                                        <div class="col-6 py-1 text-right border-right"><strong>Tuition Fee</strong></div>
-                                        <div class="col-6 py-1">${o.getPriceSkillCour()}$/ Month</div>
-                                        <input type="hidden" name ="priceSkillCour" class="form-control input_confirm" value="${o.getPriceSkillCour()}"required>
-                                    </div>
-                                </div>
-                                <span class="navbar-text text-center">
-                                    <a data-toggle="modal" data-target="#confirmClass${o.idChildCour.trim()}">
-                                        <input type="button" class="btn btn-primary px-4 "  value="Join Now">
-                                    </a>
-                                    <span class="text-danger ">${msq}</span>
-                                </span>
+                        <div class="card border-0 bg-light shadow-sm pb-2">
+                            <img class="card-img-top mb-2" src="img/class-1.jpg" alt="">
+                            <div class="card-body text-center">
+                                <input type="hidden" name ="idClass" value="${o.getIdClass()}">
+                                <h4 class="card-title"><input name="className" type="hidden" value="${o.getClassName()}"/>Class ${o.getClassName()}</h4>
                             </div>
+                            <div class="card-footer bg-transparent py-4 px-5">
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right"><strong>Age condition</strong></div>
+                                    <div class="col-6 py-1">${o.getCondition()}</div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right" for="seat"><strong>Total Seats</strong></div>
+                                    <div class="col-6 py-1" name="totalSeat">${o.getTotalSeat()}</div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right"><strong>Time Start</strong></div>
+                                    <div class="col-6 py-1" name="timeStartSemester">${o.getTimeStart1()}</div>
+                                </div>
+                                <div class="row border-bottom">
+                                    <div class="col-6 py-1 text-right border-right"><strong>Time End</strong></div>
+                                    <div class="col-6 py-1" name="timeEndSemester">${o.getTimeEnd1()}</div>
+                                </div>
 
-                        </form>
+                            </div>
+                            <span class="navbar-text text-center">
+                                <a data-toggle="modal" data-target="#confirmClass${o.getIdClass().trim()}">
+                                    <input type="button" class="btn btn-primary px-4 " value="Join Now">
+                                </a>
+                                <span class="text-danger ">${msq}</span>
+                            </span>
+                        </div>
                     </div>
-                    <div id="confirmClass${o.idChildCour.trim()}" class="modal fade " role="dialog" >
+
+                    <div id="confirmClass${o.getIdClass().trim()}" class="modal fade " role="dialog" >
                         <div class="modal-dialog modal-lg" role="content">
-                            <!-- Modal content-->
+                             Modal content
                             <div class="modal-content">
                                 <div class="modal-header">
                                     <h4 class="modal-title">Confirm Register Class</h4>
@@ -91,31 +77,26 @@
                                                     <h6 class="mb-0 pt-2">Parent Name</h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
-                                                    <input type="text" name ="parent" class="form-control input_confirm" value="${u.getFullName()}" disabled>
-                                                    <input type="hidden" name="idChildCour"value="${o.getIdChildCour()}">
+                                                    <input type="hidden" name ="idUser" value="${u.getIdUser()}"> ${u.getFullName()}
                                                 </div>
                                             </div>
                                             <div class="row mb-3 col-12">
                                                 <div class="col-sm-3 col-12">
                                                     <h6 class="mb-0 pt-2">Child Name</h6>
                                                 </div>
-                                                <div class="col-sm-9 text-secondary">
-                                                    <select class="form-select col-sm-12 py-2 form-control  custom-select input_form" name="idChild" required>
-                                                        <!--Vongf for-->
-                                                        <c:forEach items="${listChild}" var="child">
-                                                        <option value="${child.idChild}"  >${child.childName}</option>
-                                                        </c:forEach>
-                                                        <!--vong fo-->
-                                                    </select>
-                                                </div>
+                                                <select class="form-select form-control" style="width: 60%;margin-left: 19px"name="idChild" >
+                                                    <c:forEach items="${listc2}" var="c">
+                                                        <option value="${c.idChild}">${c.childName}</option>
+                                                    </c:forEach>
+                                                </select>
+
                                             </div>
                                             <div class="row mb-3 col-12">
                                                 <div class="col-sm-3 col-12">
                                                     <h6 class="mb-0 pt-2">Class Name</h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
-                                                    <input type="text" name ="classname" class="form-control input_confirm" value="${o.getClassName()}"disabled>
-                                                    <input type="hidden" name="idTeacher"value="${o.getIdteacher()}">
+                                                    <input type="hidden" name ="idClass" class="form-control input_confirm" value="${o.getIdClass()}"required>${o.getClassName()}
                                                 </div>
                                             </div>
                                             <div class="row mb-3 col-12">
@@ -123,7 +104,7 @@
                                                     <h6 class="mb-0 pt-2">Total Seats</h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
-                                                    <input type="number" name ="totalseat" class="form-control input_confirm" value="${o.getTotalSeat()}"disabled>
+                                                  ${o.getTotalSeat()}
                                                 </div>
                                             </div>
                                             <div class="row mb-3 col-12">
@@ -131,7 +112,7 @@
                                                     <h6 class="mb-0 pt-2">Time Start</h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
-                                                    <input type="text" name ="timestart" class="form-control input_confirm" value="${o.getTimeStart1()}"disabled>
+                                                 ${o.getTimeStart1()}
                                                 </div>
                                             </div>
                                             <div class="row mb-3 col-12">
@@ -139,7 +120,7 @@
                                                     <h6 class="mb-0 pt-2">Time End</h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
-                                                    <input type="text" name ="timeend" class="form-control input_confirm" value="${o.getTimeEnd1()}" disabled>
+                                                  ${o.getTimeEnd1()}
                                                 </div>
                                             </div>
                                             <div class="row mb-3 col-12">
@@ -147,7 +128,7 @@
                                                     <h6 class="mb-0 pt-2">Tution Fee</h6>
                                                 </div>
                                                 <div class="col-sm-9 text-secondary">
-                                                    <input type="number" name ="tutionfee" class="form-control input_confirm" value="${o.getPriceSkillCour()}"  disabled>
+                                                    <input type="number" name ="tutionfee" class="form-control input_confirm" value="${u.getPhoneNumber()}" disabled>
                                                 </div>
                                             </div>
                                             <div class="form-row text-left col-12">
@@ -162,6 +143,8 @@
                         </div>
                     </div>
                 </c:forEach>
+                
+
             </div>
         </div>
     </div>
@@ -170,55 +153,6 @@
 
 
 
-    <!-- Registration Start -->
-    <div class="container-fluid py-5">
-        <div class="container">
-            <div class="row align-items-center">
-                <div class="col-lg-7 mb-5 mb-lg-0">
-                    <p class="section-title pr-5"><span class="pr-2">Book A Seat</span></p>
-                    <h1 class="mb-4">Book A Seat For Your Kid</h1>
-                    <p>Invidunt lorem justo sanctus clita. Erat lorem labore ea, justo dolor lorem ipsum ut sed eos,
-                        ipsum et dolor kasd sit ea justo. Erat justo sed sed diam. Ea et erat ut sed diam sea ipsum est
-                        dolor</p>
-                    <ul class="list-inline m-0">
-                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Labore eos amet dolor amet diam</li>
-                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Etsea et sit dolor amet ipsum</li>
-                        <li class="py-2"><i class="fa fa-check text-success mr-3"></i>Diam dolor diam elitripsum vero.</li>
-                    </ul>
-                    <a href="" class="btn btn-primary mt-4 py-2 px-4">Book Now</a>
-                </div>
-                <div class="col-lg-5">
-                    <div class="card border-0">
-                        <div class="card-header bg-secondary text-center p-4">
-                            <h1 class="text-white m-0">Book A Seat</h1>
-                        </div>
-                        <div class="card-body rounded-bottom bg-primary p-5">
-                            <form>
-                                <div class="form-group">
-                                    <input type="text" class="form-control border-0 p-4" placeholder="Your Name" required="required" />
-                                </div>
-                                <div class="form-group">
-                                    <input type="email" class="form-control border-0 p-4" placeholder="Your Email" required="required" />
-                                </div>
-                                <div class="form-group">
-                                    <select class="custom-select border-0 px-4" style="height: 47px;">
-                                        <option selected>Select A Class</option>
-                                        <option value="1">Class 1</option>
-                                        <option value="2">Class 1</option>
-                                        <option value="3">Class 1</option>
-                                    </select>
-                                </div>
-                                <div>
-                                    <button class="btn btn-secondary btn-block border-0 py-3" type="submit">Book Now</button>
-                                </div>
-                            </form>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Registration End -->
 
     <!-- Footer Start -->
     <%@ include file="include/footer.jsp" %>

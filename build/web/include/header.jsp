@@ -63,15 +63,13 @@
                         <a href="proposal.jsp" class="nav-item nav-link">Proposal</a>
                         <a href="AnnouncementList" class="nav-item nav-link">Announcement</a>
                         
-                        <a href="ListClass" class="nav-item nav-link">Classes</a>
+                        <a href="ListClass?id=${u.getIdUser()}" class="nav-item nav-link">Classes</a>
 
                         <c:if test="${role == 'Teacher'}">
                             <a href="class-list?id=${u.getIdUser()}" class="nav-item nav-link">Teachers</a>
                         </c:if>
                         <c:if test="${role == 'Admin'}">
-                            <a href="addCourse.jsp" class="nav-item nav-link">Course</a>
-                            <a href="adClassList" class="nav-item nav-link">Class List</a>
-                            <a href="admin-list?role=${'Teacher'}" class="nav-item nav-link">User Management</a>
+                            <a href="admin.jsp" class="nav-item nav-link">Addmin</a>
                         </c:if>
                         <div class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Pages</a>

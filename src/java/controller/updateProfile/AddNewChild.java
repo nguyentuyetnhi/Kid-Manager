@@ -47,7 +47,7 @@ public class AddNewChild extends HttpServlet {
         String idUser = request.getParameter("idUser");
         String idChild = UsersDB.createID();
 
-        Child child = new Child(idChild, fullname, idUser, dob, gender, "NULL", 0, 0, "NULL", "NULL");
+        Child child = new Child(idChild, fullname, idUser, dob, gender, "NULL", 0, 0, "NULL", "NULL","NULL");
         Users s = (Users) (request.getSession().getAttribute("USER"));
 
         if (ChildDB.newChild(child)) {

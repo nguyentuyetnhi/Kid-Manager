@@ -5,14 +5,12 @@
 package controller.updateProfile;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import model.User.Users;
 import model.User.UsersDB;
-import org.apache.catalina.User;
 import validation.Validator;
 
 /**

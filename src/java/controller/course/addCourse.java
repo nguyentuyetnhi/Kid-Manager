@@ -4,23 +4,21 @@
  */
 package controller.course;
 
-import model.skillCourse.SkillCourse;
-import model.skillCourse.SkillCourseDB;
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import javax.servlet.ServletException;
-import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
-import model.User.UsersDB;
+import model.Class.ClassList;
+import model.Class.ClassListDB;
+import validation.Validator;
 
 /**
  *
  * @author DELL-G3
  */
-
 public class addCourse extends HttpServlet {
 
     /**
@@ -32,24 +30,33 @@ public class addCourse extends HttpServlet {
      * @throws ServletException if a servlet-specific error occurs
      * @throws IOException if an I/O error occurs
      */
+       public static final String ERROR = "addClass.jsp";
+    public static final String SUCCESS = "addClass.jsp";
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
+        String idClass =Validator.createID();
+        String className = request.getParameter("className");
+        String idTeacher = request.getParameter("idTeacher");
+        int totalSeat = Integer.valueOf(request.getParameter("totalSeat"));
+        String timeStartSemester = request.getParameter("timeStartSemester");
+        String timeEndSemester = request.getParameter("timeEndSemester");
+        String timeFrom = request.getParameter("timeFrom");
+        String timeTo = request.getParameter("timeTo");
+        int tuition = Integer.valueOf(request.getParameter("tuition"));
+        String status = "NULL";
+        String condition = request.getParameter("condition");
         
-        String CourseName = request.getParameter("skillName").trim();
-        int CoursePrice = Integer.parseInt(request.getParameter("priceSkillCourse").trim());
-        HttpSession session = request.getSession();
-        session.setAttribute("cn", CourseName);
-        session.setAttribute("cp", CoursePrice);
+       ClassList classList = new ClassList(idClass, className, idTeacher, totalSeat,  LocalDateTime.parse(timeStartSemester),  LocalDateTime.parse(timeEndSemester),  LocalDateTime.parse(timeFrom),  LocalDateTime.parse(timeTo), tuition, status, condition);
+        if(ClassListDB.addClassList(classList)){
+            request.setAttribute("msq", "Registration success !!!");
+             request.getRequestDispatcher(response.encodeURL(SUCCESS)).forward(request, response);
+        }else{
+             request.setAttribute("msq", "Registration Fail !!!");
+             request.getRequestDispatcher(response.encodeURL(ERROR)).forward(request, response);
+        }
 
-        SkillCourse sc = new SkillCourse();
-        sc.setIdSkillCourse(UsersDB.createID());
-        sc.setSkillName(CourseName);
-        sc.setPriceSkillCourse(CoursePrice);
-        SkillCourseDB scdb = new SkillCourseDB();
-        scdb.addCourse(sc);
-        request.setAttribute("msq", "Successful Registration");
-        request.getRequestDispatcher(response.encodeURL("addCourse.jsp")).forward(request, response);
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -64,7 +71,7 @@ public class addCourse extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-         processRequest(request, response);
+        processRequest(request, response);
     }
 
     /**

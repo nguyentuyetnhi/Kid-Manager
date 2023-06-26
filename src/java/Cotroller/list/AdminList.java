@@ -33,7 +33,7 @@ public class AdminList extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
 
-        Users users = (Users) request.getSession().getAttribute("USER");
+         Users users = (Users) request.getSession().getAttribute("USER");
         if (users == null) {
             request.getRequestDispatcher("login.jsp").forward(request, response);
         } else {

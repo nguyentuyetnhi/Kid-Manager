@@ -61,7 +61,7 @@ public class Registration extends HttpServlet {
                 u.setPhoneNumber(phone);
                 u.setEmail("NULL");
                 u.setPassword(password);
-                u.setRole("PR");
+                u.setRole("Parent");
                 u.setCerticate("NULL");
                 u.setIdChild("NULL");
                 u.setImgAvt("NULL");

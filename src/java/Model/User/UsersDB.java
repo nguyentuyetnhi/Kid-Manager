@@ -25,10 +25,19 @@ public class UsersDB {
     public static Users checkLogin(String acc, String pass) {
         Users user = null;
         try ( Connection con = DatabaseInfo.getConnect()) {
-            PreparedStatement stmt = con.prepareStatement("SELECT [idUser]  ,[fullName]  ,[address]  "
-                    + " ,[dob] ,[gender]    ,[email]  ,[phoneNumber] ,[password]\n"
-                    + ",[role] ,[idChild] ,[certicate] ,[imgAvt] FROM [dbo].[Users] "
-                    + "where ([email]=? or [phoneNumber]= ?)and [password]=?");
+            PreparedStatement stmt = con.prepareStatement("SELECT [idUser]\n"
+                    + "      ,[fullName]\n"
+                    + "      ,[address]\n"
+                    + "      ,[dob]\n"
+                    + "      ,[gender]\n"
+                    + "      ,[email]\n"
+                    + "      ,[phoneNumber]\n"
+                    + "      ,[password]\n"
+                    + "      ,[role]\n"
+                    + "      ,[idChild]\n"
+                    + "      ,[certicate]\n"
+                    + "      ,[imgAvt]\n"
+                    + "  FROM [dbo].[Users] where ([email]=? or [phoneNumber]= ?)and [password]=?");
             stmt.setString(1, acc);
             stmt.setString(2, acc);
             stmt.setString(3, pass);
@@ -45,7 +54,7 @@ public class UsersDB {
                 String role = rs.getString(9).trim();
                 String idChild = rs.getString(10);
                 String certicate = rs.getString(11);
-                String imgAvt = rs.getString(12);
+                String imgAvt = rs.getString(12).trim();
                 user = new Users(id, name, address, mail, pw, idChild, certicate, imgAvt, role, gender, dob, phone);
             }
             con.close();
@@ -228,6 +237,37 @@ public class UsersDB {
         try ( Connection con = DatabaseInfo.getConnect()) {
             PreparedStatement stmt = con.prepareStatement("SELECT [idUser],[fullName]  ,[address],[dob] ,[gender],"
                     + "[email]  ,[phoneNumber] ,[password]\n"
+                    + "                    ,[role] ,[idChild] ,[certicate] ,[imgAvt] FROM [dbo].[Users] where [role]='" + role1 + "    ' ");
+            ResultSet rs = stmt.executeQuery();
+            while (rs.next()) {
+                String id = rs.getString(1);
+                String name = rs.getString(2);
+                String address = rs.getString(3);
+                Date dob = rs.getDate(4);
+                String gender = rs.getString(5);
+                String mail = rs.getString(6);
+                String phone = rs.getString(7);
+                String pw = rs.getString(8);
+                String role = rs.getString(9).trim();
+                String idChild = rs.getString(10);
+                String certicate = rs.getString(11);
+                String imgAvt = rs.getString(12);
+                user.add(new Users(id, name, address, mail, pw, idChild, certicate, imgAvt, role, gender, dob, phone));
+            }
+            con.close();
+            return user;
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+
+    }
+
+    public static ArrayList<Users> getAllUsers() {
+        String role1 = "Teacher   ";
+        ArrayList<Users> user = new ArrayList<Users>();
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("SELECT [idUser],[fullName]  ,[address],[dob] ,[gender],"
+                    + "[email]  ,[phoneNumber] ,[password]\n"
                     + "                    ,[role] ,[idChild] ,[certicate] ,[imgAvt] FROM [dbo].[Users] where [role]='" + role1 + "    '");
             ResultSet rs = stmt.executeQuery();
             while (rs.next()) {
@@ -287,4 +327,43 @@ public class UsersDB {
         return user;
     }
 
+    public static void updateStatus(String idUser, String role) {
+
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("UPDATE [dbo].[Users] SET  [role]=? where [idUser]=?");
+
+            stmt.setString(1, role);
+            stmt.setString(2, idUser);
+            int rs = stmt.executeUpdate();
+            con.close();
+        } catch (Exception ex) {
+
+            throw new RuntimeException(ex);
+
+        }
+
+    }
+
+    public static void updateImg(String idUsers, String img) {
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("Update Users set imgAvt=? where idUser=?");
+            stmt.setString(1, img);
+            stmt.setString(2, idUsers);
+            stmt.executeUpdate();
+            con.close();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
+     public static void updateCertificate(String idUsers, String img) {
+        try ( Connection con = DatabaseInfo.getConnect()) {
+            PreparedStatement stmt = con.prepareStatement("Update Users set [certicate]=? where idUser=?");
+            stmt.setString(1, img);
+            stmt.setString(2, idUsers);
+            stmt.executeUpdate();
+            con.close();
+        } catch (Exception ex) {
+            throw new RuntimeException(ex);
+        }
+    }
 }

@@ -17,6 +17,10 @@
         <servlet-class>controller.updateProfile.UpdateProfileParent</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <servlet-class>control.file.FileUploadServlet</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>AddNewChild</servlet-name>
         <servlet-class>controller.updateProfile.AddNewChild</servlet-class>
     </servlet>
@@ -54,7 +58,7 @@
     </servlet>
     <servlet>
         <servlet-name>ProfileChildById</servlet-name>
-        <servlet-class>model.child.ProfileChildById</servlet-class>
+        <servlet-class>controller.updateProfile.ProfileChildById</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>ProfileParentEdit</servlet-name>
@@ -69,8 +73,12 @@
         <servlet-class>controller.announcement.AnnouncementList</servlet-class>
     </servlet>
     <servlet>
+        <servlet-name>SkillList</servlet-name>
+        <servlet-class>cotroller.list.SkillList</servlet-class>
+    </servlet>
+    <servlet>
         <servlet-name>adClassList</servlet-name>
-        <servlet-class>cotroller.list.adClassList</servlet-class>
+        <servlet-class>cotroller.list.addClassList</servlet-class>
     </servlet>
     <servlet>
         <servlet-name>VoteProposal</servlet-name>
@@ -79,6 +87,46 @@
     <servlet>
         <servlet-name>registerClass</servlet-name>
         <servlet-class>cotroller.list.registerClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>RemoveUsers</servlet-name>
+        <servlet-class>controller.updateProfile.RemoveUsers</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClassRegistrationList</servlet-name>
+        <servlet-class>cotroller.list.ClassRegistrationList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DecisionRegistClass</servlet-name>
+        <servlet-class>cotroller.list.DecisionRegistClass</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ClassManagement</servlet-name>
+        <servlet-class>cotroller.list.ClassManagement</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileChildv2</servlet-name>
+        <servlet-class>controller.updateProfile.UpdateProfileChildv2</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ProfileChildByIdEdit</servlet-name>
+        <servlet-class>controller.updateProfile.ProfileChildByIdEdit</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SkillClassList</servlet-name>
+        <servlet-class>cotroller.list.SkillClassList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadFileChildAvatar</servlet-name>
+        <servlet-class>control.file.UploadFileChildAvatar</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FileUploadDob</servlet-name>
+        <servlet-class>control.file.FileUploadDob</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FileUploadCertificate</servlet-name>
+        <servlet-class>control.file.FileUploadCertificate</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Login</servlet-name>
@@ -159,6 +207,54 @@
     <servlet-mapping>
         <servlet-name>registerClass</servlet-name>
         <url-pattern>/registerClass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadServlet</servlet-name>
+        <url-pattern>/fileuploadservlet</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SkillList</servlet-name>
+        <url-pattern>/skill-list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>RemoveUsers</servlet-name>
+        <url-pattern>/remove</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassRegistrationList</servlet-name>
+        <url-pattern>/class-registration-list</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DecisionRegistClass</servlet-name>
+        <url-pattern>/decision</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ClassManagement</servlet-name>
+        <url-pattern>/class-management</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileChildv2</servlet-name>
+        <url-pattern>/UpdateProfileChildv2</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ProfileChildByIdEdit</servlet-name>
+        <url-pattern>/ProfileChildByIdEdit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SkillClassList</servlet-name>
+        <url-pattern>/skill-child</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadFileChildAvatar</servlet-name>
+        <url-pattern>/FileUpLoadChild</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadDob</servlet-name>
+        <url-pattern>/FileUploadDob</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FileUploadCertificate</servlet-name>
+        <url-pattern>/FileUploadCertificate</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

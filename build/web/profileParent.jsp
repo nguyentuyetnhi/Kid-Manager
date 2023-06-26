@@ -23,7 +23,9 @@
                     <div class="card">
                         <div class="card-body">
                             <div class="d-flex flex-column align-items-center text-center">
-                                <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin" class="rounded-circle" width="150">
+                                <a data-toggle="modal" data-target="#confirmImg">
+                                    <img src="./img/${userRequest.getImgAvt().trim()}"  class="rounded-circle p-1 bg-primary" width="150" height="150">
+                                </a>
                                 <div class="mt-3">
                                     <h4>${userRequest.getFullName()}</h4>
                                     <p class="text-secondary mb-1">ID: @${userRequest.getIdUser()}</p>
@@ -33,7 +35,6 @@
                     </div>
                     <div class="card mt-3">
                         <ul class="list-group list-group-flush">
-
 
                             <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                 <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info"><path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path></svg>Twitter</h6>
@@ -47,6 +48,28 @@
                                 <h6 class="mb-0"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-facebook mr-2 icon-inline text-primary"><path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path></svg>Facebook</h6>
                                 <span class="text-secondary">None</span>
                             </li>
+                            <c:if test="${role == 'Teacher'}">
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info">
+                                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                        </path>
+                                        </svg> certificate
+                                    </h6> 
+                                    <span class="text-secondary"><a data-toggle="modal" data-target="#confirmImgCertificate" href="#">certificate</a></span>
+                                </li>
+                            </c:if>
+                            <c:if test="${role == 'Admin'}">
+                                <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
+                                    <h6 class="mb-0">
+                                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewbox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-twitter mr-2 icon-inline text-info">
+                                        <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z">
+                                        </path>
+                                        </svg> certificate
+                                    </h6> 
+                                    <span class="text-secondary"><a data-toggle="modal" data-target="#confirmImgCertificate" href="#">certificate </a></span>
+                                </li>
+                            </c:if>
                         </ul>
                     </div>
                 </div>
@@ -133,9 +156,9 @@
 
 
                                     <ul class="list-group list-group-flush">
-                                        
+
                                         <c:forEach items="${listChild}" var="child"> 
-                                            
+
                                             <c:if test="${userRequest.idUser.trim() == child.idUser.trim()}">
                                                 <li class="list-group-item d-flex justify-content-between align-items-center flex-wrap">
                                                     <h6 class="mb-0">
@@ -188,6 +211,43 @@
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmImg" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg" role="content">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change avatar</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="fileuploadservlet" enctype="multipart/form-data">
+                            <input type="hidden" name ="idUser" class="form-control input_confirm" value="${u.getIdUser()}">
+                            <input type="file" name="file" value="" placeholder="edit"/>
+                            <input type="submit" value="Upload" />
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div id="confirmImgCertificate" class="modal fade" role="dialog">
+            <div class="modal-dialog modal-lg" role="content">
+                <!-- Modal content-->
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title">Change avatar</h4>
+                        <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    </div>
+                    <div class="modal-body">
+                        <form method="post" action="FileUploadCertificate" enctype="multipart/form-data">
+                            <img src="./img/${userRequest.getCerticate().trim()}"   width="300" height="300"><br>
+                            <input type="hidden" name ="idUser" class="form-control input_confirm" value="${u.getIdUser()}">
+                            <input type="file" name="file" value="" placeholder="edit"/>
+                            <input type="submit" value="Upload" />
+                        </form>
                     </div>
                 </div>
             </div>
